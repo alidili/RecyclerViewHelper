@@ -18,8 +18,8 @@ import com.yl.recyclerview.R;
 
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private RecyclerView.Adapter adapter;
-
+    // Origin adapter
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     // General view
     private final int TYPE_ITEM = 1;
     // Footer view
@@ -33,7 +33,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // Load end
     public final int LOADING_END = 3;
 
-    public LoadMoreWrapper(RecyclerView.Adapter adapter) {
+    public LoadMoreWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
         this.adapter = adapter;
     }
 
@@ -99,6 +99,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+
+        // Judge GridLayoutManager
         if (manager instanceof GridLayoutManager) {
             final GridLayoutManager gridManager = ((GridLayoutManager) manager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
