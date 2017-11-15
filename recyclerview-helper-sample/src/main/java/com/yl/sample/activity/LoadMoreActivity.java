@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import com.yl.recyclerview.listener.EndlessRecyclerOnScrollListener;
 import com.yl.recyclerview.wrapper.LoadMoreWrapper;
 import com.yl.sample.R;
-import com.yl.sample.adapter.LoadMoreAdapter;
+import com.yl.sample.adapter.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +25,19 @@ import java.util.TimerTask;
 /**
  * Pull down to refresh
  * Pull up to load more
- * <p>
  * Created by yangle on 2017/10/26.
+ * <p>
+ * Website：http://www.yangle.tech
+ * <p>
+ * GitHub：https://github.com/alidili
+ * <p>
+ * CSDN：http://blog.csdn.net/kong_gu_you_lan
+ * <p>
+ * JianShu：http://www.jianshu.com/u/34ece31cd6eb
  */
 
 public class LoadMoreActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private LoadMoreWrapper loadMoreWrapper;
@@ -46,7 +52,7 @@ public class LoadMoreActivity extends AppCompatActivity {
     }
 
     private void init() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -58,8 +64,8 @@ public class LoadMoreActivity extends AppCompatActivity {
 
         // Simulate get data
         getData();
-        LoadMoreAdapter loadMoreAdapter = new LoadMoreAdapter(dataList);
-        loadMoreWrapper = new LoadMoreWrapper(loadMoreAdapter);
+        CommonAdapter commonAdapter = new CommonAdapter(dataList);
+        loadMoreWrapper = new LoadMoreWrapper(commonAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(loadMoreWrapper);
 

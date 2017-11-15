@@ -9,6 +9,14 @@ import android.view.ViewGroup;
 /**
  * Add header view and footer view
  * Created by yangle on 2017/10/27.
+ * <p>
+ * Website：http://www.yangle.tech
+ * <p>
+ * GitHub：https://github.com/alidili
+ * <p>
+ * CSDN：http://blog.csdn.net/kong_gu_you_lan
+ * <p>
+ * JianShu：http://www.jianshu.com/u/34ece31cd6eb
  */
 
 public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -16,9 +24,9 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     // Origin adapter
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     // Header view
-    private final int TYPE_HEADER = 1;
+    private final int TYPE_HEADER = 1000;
     // Footer view
-    private final int TYPE_FOOTER = 2;
+    private final int TYPE_FOOTER = 2000;
     // Header view list
     private SparseArrayCompat<View> headerViews = new SparseArrayCompat<>();
     // Footer view list
@@ -32,8 +40,9 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemViewType(int position) {
         if (isHeaderView(position)) {
             return headerViews.keyAt(position);
+
         } else if (isFooterView(position)) {
-            return footerViews.keyAt(position - getItemCount() - getHeaderViewCount());
+            return footerViews.keyAt(position - getHeaderViewCount() - getItemViewCount());
         }
         return adapter.getItemViewType(position - getHeaderViewCount());
     }
@@ -41,9 +50,10 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headerViews.get(viewType) != null) {
-            return null;
+            return new HeaderAndFooterViewHolder(headerViews.get(viewType));
+
         } else if (footerViews.get(viewType) != null) {
-            return null;
+            return new HeaderAndFooterViewHolder(footerViews.get(viewType));
         }
         return adapter.createViewHolder(parent, viewType);
     }
@@ -53,7 +63,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         if (isHeaderView(position) || isFooterView(position)) {
             return;
         }
-        adapter.onBindViewHolder(holder, position);
+        adapter.onBindViewHolder(holder, position - getHeaderViewCount());
     }
 
     @Override
@@ -66,7 +76,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
 
-        // Judge GridLayoutManager
+        // GridLayoutManager
         if (manager instanceof GridLayoutManager) {
             final GridLayoutManager gridManager = ((GridLayoutManager) manager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -82,8 +92,33 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
+    private class HeaderAndFooterViewHolder extends RecyclerView.ViewHolder {
+
+        public HeaderAndFooterViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     /**
-     * Judge header view
+     * Add header view
+     *
+     * @param view View
+     */
+    public void addHeaderView(View view) {
+        headerViews.append(getHeaderViewCount() + TYPE_HEADER, view);
+    }
+
+    /**
+     * Add footer view
+     *
+     * @param view View
+     */
+    public void addFooterView(View view) {
+        footerViews.append(getFooterViewCount() + TYPE_FOOTER, view);
+    }
+
+    /**
+     * Is header view
      *
      * @param position Current view position
      * @return true: header view
@@ -93,13 +128,13 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Judge footer view
+     * Is footer view
      *
      * @param position Current view position
      * @return true: footer view
      */
     public boolean isFooterView(int position) {
-        return position > getItemViewCount() + getHeaderViewCount();
+        return position >= getItemViewCount() + getHeaderViewCount();
     }
 
     /**

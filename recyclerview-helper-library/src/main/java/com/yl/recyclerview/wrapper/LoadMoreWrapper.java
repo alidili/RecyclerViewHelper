@@ -14,6 +14,14 @@ import com.yl.recyclerview.R;
 /**
  * Pull up to load more
  * Created by yangle on 2017/10/26.
+ * <p>
+ * Website：http://www.yangle.tech
+ * <p>
+ * GitHub：https://github.com/alidili
+ * <p>
+ * CSDN：http://blog.csdn.net/kong_gu_you_lan
+ * <p>
+ * JianShu：http://www.jianshu.com/u/34ece31cd6eb
  */
 
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -53,7 +61,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == TYPE_FOOTER) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_refresh_footer, parent, false);
-            return new FootViewHolder(view);
+            return new FooterViewHolder(view);
         } else {
             return adapter.onCreateViewHolder(parent, viewType);
         }
@@ -61,25 +69,25 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof FootViewHolder) {
-            FootViewHolder footViewHolder = (FootViewHolder) holder;
+        if (holder instanceof FooterViewHolder) {
+            FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
             switch (loadState) {
                 case LOADING: // Loading
-                    footViewHolder.pbLoading.setVisibility(View.VISIBLE);
-                    footViewHolder.tvLoading.setVisibility(View.VISIBLE);
-                    footViewHolder.llEnd.setVisibility(View.GONE);
+                    footerViewHolder.pbLoading.setVisibility(View.VISIBLE);
+                    footerViewHolder.tvLoading.setVisibility(View.VISIBLE);
+                    footerViewHolder.llEnd.setVisibility(View.GONE);
                     break;
 
                 case LOADING_COMPLETE: // Load done
-                    footViewHolder.pbLoading.setVisibility(View.INVISIBLE);
-                    footViewHolder.tvLoading.setVisibility(View.INVISIBLE);
-                    footViewHolder.llEnd.setVisibility(View.GONE);
+                    footerViewHolder.pbLoading.setVisibility(View.INVISIBLE);
+                    footerViewHolder.tvLoading.setVisibility(View.INVISIBLE);
+                    footerViewHolder.llEnd.setVisibility(View.GONE);
                     break;
 
                 case LOADING_END: // Load end
-                    footViewHolder.pbLoading.setVisibility(View.GONE);
-                    footViewHolder.tvLoading.setVisibility(View.GONE);
-                    footViewHolder.llEnd.setVisibility(View.VISIBLE);
+                    footerViewHolder.pbLoading.setVisibility(View.GONE);
+                    footerViewHolder.tvLoading.setVisibility(View.GONE);
+                    footerViewHolder.llEnd.setVisibility(View.VISIBLE);
                     break;
 
                 default:
@@ -100,7 +108,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
 
-        // Judge GridLayoutManager
+        // GridLayoutManager
         if (manager instanceof GridLayoutManager) {
             final GridLayoutManager gridManager = ((GridLayoutManager) manager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -114,13 +122,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private class FootViewHolder extends RecyclerView.ViewHolder {
+    private class FooterViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar pbLoading;
         TextView tvLoading;
         LinearLayout llEnd;
 
-        FootViewHolder(View itemView) {
+        FooterViewHolder(View itemView) {
             super(itemView);
             pbLoading = (ProgressBar) itemView.findViewById(R.id.pb_loading);
             tvLoading = (TextView) itemView.findViewById(R.id.tv_loading);

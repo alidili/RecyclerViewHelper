@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoadMoreActivity" />
+        <activity android:name=".activity.HeaderAndFooterViewActivity" />
     </application>
 
 </manifest>
