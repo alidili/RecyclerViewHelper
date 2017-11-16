@@ -1,13 +1,12 @@
 package com.yl.recyclerview.wrapper;
 
+import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import com.yl.recyclerview.R;
 
@@ -26,20 +25,28 @@ import com.yl.recyclerview.R;
 
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    // Context
+    private Context context;
     // Origin adapter
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     // General view
     private final int TYPE_ITEM = 1;
     // Footer view
     private final int TYPE_FOOTER = 2;
-    // The current load state, the default is loaded to complete
-    private int loadState = 2;
+    // The current loading state, the default is loading complete
+    private int loadingState = 2;
     // Loading
     public final int LOADING = 1;
-    // Load done
+    // Loading done
     public final int LOADING_COMPLETE = 2;
-    // Load end
+    // Loading end
     public final int LOADING_END = 3;
+    // Loading view
+    private View loadingView;
+    // Loading end view
+    private View loadingEndView;
+    // Loading view height
+    private int loadingViewHeight;
 
     public LoadMoreWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
         this.adapter = adapter;
@@ -57,11 +64,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Create a different view by judging the display type
+        // Get context
+        this.context = parent.getContext();
+
+        // Create view by the display type
         if (viewType == TYPE_FOOTER) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_refresh_footer, parent, false);
-            return new FooterViewHolder(view);
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_footer, parent, false);
+            return new LoadMoreViewHolder(view);
         } else {
             return adapter.onCreateViewHolder(parent, viewType);
         }
@@ -69,25 +78,44 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof FooterViewHolder) {
-            FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-            switch (loadState) {
+        if (holder instanceof LoadMoreViewHolder) {
+            LoadMoreViewHolder loadMoreViewHolder = (LoadMoreViewHolder) holder;
+
+            // Set loading view height
+            loadMoreViewHolder.rlLoadingFooter.removeAllViews();
+            if (loadingViewHeight > 0) {
+                RelativeLayout.LayoutParams params =
+                        (RelativeLayout.LayoutParams) loadMoreViewHolder.rlLoadingFooter.getLayoutParams();
+                params.height = loadingViewHeight;
+                loadMoreViewHolder.rlLoadingFooter.setLayoutParams(params);
+            }
+
+            // Display loading view
+            switch (loadingState) {
                 case LOADING: // Loading
-                    footerViewHolder.pbLoading.setVisibility(View.VISIBLE);
-                    footerViewHolder.tvLoading.setVisibility(View.VISIBLE);
-                    footerViewHolder.llEnd.setVisibility(View.GONE);
+                    if (loadingView != null) {
+                        // Custom loading view
+                        loadMoreViewHolder.rlLoadingFooter.addView(loadingView);
+                    } else {
+                        // Default loading view
+                        View loadingView = View.inflate(context, R.layout.layout_loading, null);
+                        loadMoreViewHolder.rlLoadingFooter.addView(loadingView);
+                    }
                     break;
 
-                case LOADING_COMPLETE: // Load done
-                    footerViewHolder.pbLoading.setVisibility(View.INVISIBLE);
-                    footerViewHolder.tvLoading.setVisibility(View.INVISIBLE);
-                    footerViewHolder.llEnd.setVisibility(View.GONE);
+                case LOADING_COMPLETE: // Loading done
+                    // TODO
                     break;
 
-                case LOADING_END: // Load end
-                    footerViewHolder.pbLoading.setVisibility(View.GONE);
-                    footerViewHolder.tvLoading.setVisibility(View.GONE);
-                    footerViewHolder.llEnd.setVisibility(View.VISIBLE);
+                case LOADING_END: // Loading end
+                    if (loadingEndView != null) {
+                        // Custom loading end view
+                        loadMoreViewHolder.rlLoadingFooter.addView(loadingEndView);
+                    } else {
+                        // Default loading end view
+                        View loadingEndView = View.inflate(context, R.layout.layout_loading_end, null);
+                        loadMoreViewHolder.rlLoadingFooter.addView(loadingEndView);
+                    }
                     break;
 
                 default:
@@ -122,27 +150,53 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private class FooterViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Loading holder
+     */
+    private class LoadMoreViewHolder extends RecyclerView.ViewHolder {
 
-        ProgressBar pbLoading;
-        TextView tvLoading;
-        LinearLayout llEnd;
+        RelativeLayout rlLoadingFooter;
 
-        FooterViewHolder(View itemView) {
+        LoadMoreViewHolder(View itemView) {
             super(itemView);
-            pbLoading = (ProgressBar) itemView.findViewById(R.id.pb_loading);
-            tvLoading = (TextView) itemView.findViewById(R.id.tv_loading);
-            llEnd = (LinearLayout) itemView.findViewById(R.id.ll_end);
+            rlLoadingFooter = itemView.findViewById(R.id.rl_loading_footer);
         }
     }
 
     /**
      * Set the pull-up state
      *
-     * @param loadState 0.Loading 1.Load done 2.Load end
+     * @param loadingState 0.Loading 1.Loading done 2.Loading end
      */
-    public void setLoadState(int loadState) {
-        this.loadState = loadState;
+    public void setLoadState(int loadingState) {
+        this.loadingState = loadingState;
         notifyDataSetChanged();
+    }
+
+    /**
+     * Set loading view
+     *
+     * @param view Loading view
+     */
+    public void setLoadingView(View view) {
+        this.loadingView = view;
+    }
+
+    /**
+     * Set loading end view
+     *
+     * @param view Loading end view
+     */
+    public void setLoadingEndView(View view) {
+        this.loadingEndView = view;
+    }
+
+    /**
+     * Set loading view height
+     *
+     * @param height Height/px
+     */
+    public void setLoadingViewHeight(int height) {
+        this.loadingViewHeight = loadingViewHeight;
     }
 }

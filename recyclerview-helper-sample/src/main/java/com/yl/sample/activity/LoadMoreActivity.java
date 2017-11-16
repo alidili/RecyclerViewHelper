@@ -11,11 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.yl.recyclerview.listener.EndlessRecyclerOnScrollListener;
 import com.yl.recyclerview.wrapper.LoadMoreWrapper;
 import com.yl.sample.R;
 import com.yl.sample.adapter.CommonAdapter;
+import com.yl.sample.utils.DensityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +69,7 @@ public class LoadMoreActivity extends AppCompatActivity {
         getData();
         CommonAdapter commonAdapter = new CommonAdapter(dataList);
         loadMoreWrapper = new LoadMoreWrapper(commonAdapter);
+        //customLoadingView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(loadMoreWrapper);
 
@@ -111,13 +115,33 @@ public class LoadMoreActivity extends AppCompatActivity {
                         }
                     }, 1000);
                 } else {
-                    // Show load end
+                    // Show loading end
                     loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
                 }
             }
         });
     }
 
+    /**
+     * Custom loading view
+     */
+    private void customLoadingView() {
+        // Custom loading view
+        ProgressBar progressBar = new ProgressBar(this);
+        loadMoreWrapper.setLoadingView(progressBar);
+
+        // Custom loading end view
+        TextView textView = new TextView(this);
+        textView.setText("End");
+        loadMoreWrapper.setLoadingEndView(textView);
+
+        // Custom loading height
+        loadMoreWrapper.setLoadingViewHeight(DensityUtils.dp2px(this, 50));
+    }
+
+    /**
+     * Simulate get data
+     */
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {

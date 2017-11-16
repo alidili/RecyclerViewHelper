@@ -94,7 +94,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
 
     private class HeaderAndFooterViewHolder extends RecyclerView.ViewHolder {
 
-        public HeaderAndFooterViewHolder(View itemView) {
+        HeaderAndFooterViewHolder(View itemView) {
             super(itemView);
         }
     }
