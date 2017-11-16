@@ -55,7 +55,7 @@ public class CommonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
-            tvItem = (TextView) itemView.findViewById(R.id.tv_item);
+            tvItem = itemView.findViewById(R.id.tv_item);
         }
     }
 }

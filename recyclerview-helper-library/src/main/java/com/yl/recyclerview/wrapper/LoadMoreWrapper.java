@@ -67,7 +67,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // Get context
         this.context = parent.getContext();
 
-        // Create view by the display type
+        // Create view by the view type
         if (viewType == TYPE_FOOTER) {
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_footer, parent, false);
             return new LoadMoreViewHolder(view);

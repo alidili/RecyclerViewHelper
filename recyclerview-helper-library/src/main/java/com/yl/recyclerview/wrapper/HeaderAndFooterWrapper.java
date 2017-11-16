@@ -23,9 +23,9 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
 
     // Origin adapter
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
-    // Header view
+    // Header view type
     private final int TYPE_HEADER = 1000;
-    // Footer view
+    // Footer view type
     private final int TYPE_FOOTER = 2000;
     // Header view list
     private SparseArrayCompat<View> headerViews = new SparseArrayCompat<>();
@@ -49,6 +49,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // Create view by the view type
         if (headerViews.get(viewType) != null) {
             return new HeaderAndFooterViewHolder(headerViews.get(viewType));
 
@@ -92,29 +93,14 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
+    /**
+     * Header view and footer view holder
+     */
     private class HeaderAndFooterViewHolder extends RecyclerView.ViewHolder {
 
         HeaderAndFooterViewHolder(View itemView) {
             super(itemView);
         }
-    }
-
-    /**
-     * Add header view
-     *
-     * @param view View
-     */
-    public void addHeaderView(View view) {
-        headerViews.append(getHeaderViewCount() + TYPE_HEADER, view);
-    }
-
-    /**
-     * Add footer view
-     *
-     * @param view View
-     */
-    public void addFooterView(View view) {
-        footerViews.append(getFooterViewCount() + TYPE_FOOTER, view);
     }
 
     /**
@@ -162,5 +148,23 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      */
     public int getFooterViewCount() {
         return footerViews.size();
+    }
+
+    /**
+     * Add header view
+     *
+     * @param view View
+     */
+    public void addHeaderView(View view) {
+        headerViews.append(getHeaderViewCount() + TYPE_HEADER, view);
+    }
+
+    /**
+     * Add footer view
+     *
+     * @param view View
+     */
+    public void addFooterView(View view) {
+        footerViews.append(getFooterViewCount() + TYPE_FOOTER, view);
     }
 }

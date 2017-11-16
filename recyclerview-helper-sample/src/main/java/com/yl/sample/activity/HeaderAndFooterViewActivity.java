@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.yl.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.yl.sample.R;
@@ -45,8 +47,8 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
     }
 
     private void init() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.recycler_view);
 
         // Toolbar replace ActionBar
         setSupportActionBar(toolbar);
@@ -55,11 +57,31 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
         getData();
         CommonAdapter commonAdapter = new CommonAdapter(dataList);
         headerAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
-
+        addHeaderAndFooterView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(headerAndFooterWrapper);
     }
 
+    /**
+     * Add header view and footer view
+     */
+    private void addHeaderAndFooterView() {
+        // Add header view
+        View headerView = View.inflate(this, R.layout.layout_header_footer, null);
+        TextView headerItem = headerView.findViewById(R.id.tv_item);
+        headerItem.setText("HeaderView");
+        headerAndFooterWrapper.addHeaderView(headerView);
+
+        // Add footer view
+        View footerView = View.inflate(this, R.layout.layout_header_footer, null);
+        TextView footerItem = footerView.findViewById(R.id.tv_item);
+        footerItem.setText("FooterView");
+        headerAndFooterWrapper.addFooterView(footerView);
+    }
+
+    /**
+     * Simulate get data
+     */
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {
