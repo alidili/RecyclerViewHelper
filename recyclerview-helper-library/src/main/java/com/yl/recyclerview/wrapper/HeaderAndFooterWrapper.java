@@ -8,15 +8,9 @@ import android.view.ViewGroup;
 
 /**
  * Add header view and footer view
+ * <p>
  * Created by yangle on 2017/10/27.
- * <p>
  * Website：http://www.yangle.tech
- * <p>
- * GitHub：https://github.com/alidili
- * <p>
- * CSDN：http://blog.csdn.net/kong_gu_you_lan
- * <p>
- * JianShu：http://www.jianshu.com/u/34ece31cd6eb
  */
 
 public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
