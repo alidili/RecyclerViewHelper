@@ -11,7 +11,7 @@ import com.yl.sample.R;
 import java.util.List;
 
 /**
- * Pull up to load more
+ * Pull up to load more.
  * <p>
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech

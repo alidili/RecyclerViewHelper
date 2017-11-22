@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import com.yl.recyclerview.R;
 
 /**
- * Pull up to load more
+ * Pull up to load more.
  * <p>
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech
@@ -27,7 +27,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final int TYPE_ITEM = 1;
     // Footer view
     private final int TYPE_FOOTER = 2;
-    // The current loading state, the default is loading complete
+    // The current loading state, the default is loading complete.
     private int loadingState = 2;
     // Loading
     public final int LOADING = 1;
@@ -48,7 +48,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        // The last item is set to footer view
+        // The last item is set to footer view.
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
         } else {
@@ -61,7 +61,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // Get context
         this.context = parent.getContext();
 
-        // Create view by the view type
+        // Create view by the view type.
         if (viewType == TYPE_FOOTER) {
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_footer, parent, false);
             return new LoadMoreViewHolder(view);
@@ -75,7 +75,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof LoadMoreViewHolder) {
             LoadMoreViewHolder loadMoreViewHolder = (LoadMoreViewHolder) holder;
 
-            // Set loading view height
+            // Set loading view height.
             loadMoreViewHolder.rlLoadingFooter.removeAllViews();
             if (loadingViewHeight > 0) {
                 RelativeLayout.LayoutParams params =
@@ -84,7 +84,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 loadMoreViewHolder.rlLoadingFooter.setLayoutParams(params);
             }
 
-            // Display loading view
+            // Display loading view.
             switch (loadingState) {
                 case LOADING: // Loading
                     if (loadingView != null) {
@@ -136,8 +136,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    // If the current position is footer view, then the item occupy two cells
-                    // Normal item occupy a cell
+                    // If the current position is footer view, then the item occupy two cells,
+                    // Normal item occupy a cell.
                     return getItemViewType(position) == TYPE_FOOTER ? gridManager.getSpanCount() : 1;
                 }
             });
@@ -158,7 +158,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * Set the pull-up state
+     * Set the pull-up state.
      *
      * @param loadingState 0.Loading 1.Loading done 2.Loading end
      */
@@ -168,7 +168,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * Set loading view
+     * Set loading view.
      *
      * @param view Loading view
      */
@@ -177,7 +177,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * Set loading end view
+     * Set loading end view.
      *
      * @param view Loading end view
      */
@@ -186,7 +186,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * Set loading view height
+     * Set loading view height.
      *
      * @param height Height/px
      */

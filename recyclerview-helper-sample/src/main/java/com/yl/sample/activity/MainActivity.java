@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         List<String> itemList = new ArrayList<>();
         itemList.add("Pull up to load more");
         itemList.add("HeaderView / FooterView");
+        itemList.add("Drag & Drop");
 
         MainAdapter mainAdapter = new MainAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
 
             case 1:
                 intent = new Intent(this, HeaderAndFooterViewActivity.class);
+                break;
+
+            case 2:
+                intent = new Intent(this, DragAndDropActivity.class);
                 break;
 
             default:

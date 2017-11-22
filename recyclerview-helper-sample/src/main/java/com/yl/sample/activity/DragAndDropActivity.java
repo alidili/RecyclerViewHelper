@@ -1,6 +1,7 @@
 package com.yl.sample.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-import com.yl.recyclerview.wrapper.HeaderAndFooterWrapper;
+import com.yl.recyclerview.wrapper.DragAndDropWrapper;
 import com.yl.sample.R;
 import com.yl.sample.adapter.CommonAdapter;
 
@@ -20,20 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Header view and footer view sample.
+ * Drag & Drop sample.
  * <p>
- * Created by yangle on 2017/11/14.
+ * Created by yangle on 2017/11/22.
  * Website：http://www.yangle.tech
  */
 
-public class HeaderAndFooterViewActivity extends AppCompatActivity {
+public class DragAndDropActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private HeaderAndFooterWrapper headerAndFooterWrapper;
+    private DragAndDropWrapper dragAndDropWrapper;
     private List<String> dataList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common);
 
@@ -50,27 +49,10 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
         // Simulate get data
         getData();
         CommonAdapter commonAdapter = new CommonAdapter(dataList);
-        headerAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
-        addHeaderAndFooterView();
+        dragAndDropWrapper = new DragAndDropWrapper(commonAdapter, dataList);
+        dragAndDropWrapper.attachToRecyclerView(recyclerView, true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(headerAndFooterWrapper);
-    }
-
-    /**
-     * Add header view and footer view.
-     */
-    private void addHeaderAndFooterView() {
-        // Add header view
-        View headerView = View.inflate(this, R.layout.layout_header_footer, null);
-        TextView headerItem = headerView.findViewById(R.id.tv_item);
-        headerItem.setText("HeaderView");
-        headerAndFooterWrapper.addHeaderView(headerView);
-
-        // Add footer view
-        View footerView = View.inflate(this, R.layout.layout_header_footer, null);
-        TextView footerItem = footerView.findViewById(R.id.tv_item);
-        footerItem.setText("FooterView");
-        headerAndFooterWrapper.addFooterView(footerView);
+        recyclerView.setAdapter(dragAndDropWrapper);
     }
 
     /**
@@ -104,7 +86,7 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
         }
         dataList.clear();
         getData();
-        recyclerView.setAdapter(headerAndFooterWrapper);
+        recyclerView.setAdapter(dragAndDropWrapper);
         return super.onOptionsItemSelected(item);
     }
 }

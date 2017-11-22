@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Add header view and footer view
+ * Add header view and footer view.
  * <p>
  * Created by yangle on 2017/10/27.
  * Website：http://www.yangle.tech
@@ -43,7 +43,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Create view by the view type
+        // Create view by the view type.
         if (headerViews.get(viewType) != null) {
             return new HeaderAndFooterViewHolder(headerViews.get(viewType));
 
@@ -77,8 +77,8 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    // If the current position is header view or footer view, the item occupy two cells
-                    // Normal item occupy a cell
+                    // If the current position is header view or footer view, the item occupy two cells,
+                    // Normal item occupy a cell.
                     int itemViewType = getItemViewType(position);
                     return itemViewType == TYPE_HEADER || itemViewType == TYPE_FOOTER ?
                             gridManager.getSpanCount() : 1;
@@ -88,7 +88,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Header view and footer view holder
+     * Header view and footer view holder.
      */
     private class HeaderAndFooterViewHolder extends RecyclerView.ViewHolder {
 
@@ -98,7 +98,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Is header view
+     * Is't a header view.
      *
      * @param position Current view position
      * @return true: header view
@@ -108,7 +108,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Is footer view
+     * Is't a footer view.
      *
      * @param position Current view position
      * @return true: footer view
@@ -118,7 +118,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Get item view count
+     * Get item view count.
      *
      * @return item view count
      */
@@ -127,7 +127,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Get header view count
+     * Get header view count.
      *
      * @return header view count
      */
@@ -136,7 +136,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Get footer view count
+     * Get footer view count.
      *
      * @return footer view count
      */
@@ -145,7 +145,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Add header view
+     * Add header view.
      *
      * @param view View
      */
@@ -154,7 +154,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * Add footer view
+     * Add footer view.
      *
      * @param view View
      */

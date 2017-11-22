@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.yl.recyclerview.listener.EndlessRecyclerOnScrollListener;
+import com.yl.recyclerview.listener.OnScrollListener;
 import com.yl.recyclerview.wrapper.LoadMoreWrapper;
 import com.yl.sample.R;
 import com.yl.sample.adapter.CommonAdapter;
@@ -26,8 +26,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Pull down to refresh
- * Pull up to load more
+ * Pull down to refresh sample.
+ * Pull up to load more.
  * <p>
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech
@@ -89,7 +89,7 @@ public class LoadMoreActivity extends AppCompatActivity {
         });
 
         // Set the load more listener
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+        recyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onLoadMore() {
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
@@ -117,7 +117,7 @@ public class LoadMoreActivity extends AppCompatActivity {
     }
 
     /**
-     * Custom loading view
+     * Custom loading view.
      */
     private void customLoadingView() {
         // Custom loading view
@@ -134,7 +134,7 @@ public class LoadMoreActivity extends AppCompatActivity {
     }
 
     /**
-     * Simulate get data
+     * Simulate get data.
      */
     private void getData() {
         char letter = 'A';

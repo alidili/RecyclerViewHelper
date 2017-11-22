@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.TypedValue;
 
 /**
- * Unit conversion utils
+ * Unit conversion utils.
  * <p>
  * Created by yangle on 2017/11/16.
  * Website：http://www.yangle.tech

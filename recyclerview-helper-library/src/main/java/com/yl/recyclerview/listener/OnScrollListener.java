@@ -4,29 +4,29 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * RecyclerView slip listener
+ * RecyclerView scroll listener.
  * <p>
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech
  */
 
-public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+public abstract class OnScrollListener extends RecyclerView.OnScrollListener {
 
-    // Used to mark whether it is sliding up
-    private boolean isSlidingUpward = false;
+    // Used to mark whether scroll up.
+    private boolean isScrollUp = false;
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        // When not sliding
+        // When not scroll
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-            // Get the last fully displayed item position
+            // Get the last fully displayed item position.
             int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
             int itemCount = manager.getItemCount();
 
-            // To determine whether to slide to the last item, and is sliding up
-            if (lastItemPosition == (itemCount - 1) && isSlidingUpward) {
+            // Scroll to the last item, and it's scroll up.
+            if (lastItemPosition == (itemCount - 1) && isScrollUp) {
                 // Load More
                 onLoadMore();
             }
@@ -36,12 +36,12 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        // > 0 indicates that it is sliding up, <= 0 means stop or slide down
-        isSlidingUpward = dy > 0;
+        // > 0 indicates that it is scroll up, <= 0 means stop or scroll down.
+        isScrollUp = dy > 0;
     }
 
     /**
-     * Load more callbacks
+     * Callback method for scroll to end.
      */
     public abstract void onLoadMore();
 }

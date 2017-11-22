@@ -12,7 +12,7 @@ import com.yl.sample.R;
 import java.util.List;
 
 /**
- * Index adapter
+ * Index adapter.
  * <p>
  * Created by yangle on 2017/11/16.
  * Website：http://www.yangle.tech
@@ -68,7 +68,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
-     * Set item click listener
+     * Set item click listener.
      *
      * @param onItemClickListener Click callback interface
      */
@@ -77,11 +77,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
-     * Click callback interface
+     * Click callback interface.
      */
     public interface OnItemClickListener {
         /**
-         * Click callback method
+         * Click callback method.
          *
          * @param view     Current view
          * @param position Click position
