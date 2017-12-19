@@ -1,7 +1,9 @@
 package com.yl.sample.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.yl.recyclerview.helper.ItemSwipeCallback;
 import com.yl.recyclerview.wrapper.SwipeToDismissWrapper;
 import com.yl.sample.R;
 import com.yl.sample.adapter.CommonAdapter;
@@ -53,6 +56,31 @@ public class SwipeToDismissActivity extends AppCompatActivity {
         swipeToDismissWrapper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(swipeToDismissWrapper);
+
+        // Set a listener for a dismissal event.
+        swipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissListener() {
+            @Override
+            public void onItemDismiss(final int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SwipeToDismissActivity.this);
+                builder.setMessage("Do you want to delete this item ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dataList.remove(position);
+                                swipeToDismissWrapper.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                swipeToDismissWrapper.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     /**

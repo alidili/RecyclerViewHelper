@@ -22,6 +22,8 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     // Data list
     private List<?> list;
+    // A listener for a dismissal event.
+    private ItemSwipeCallback.ItemDismissListener itemDismissListener;
 
     public SwipeToDismissWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> list) {
         this.adapter = adapter;
@@ -45,8 +47,12 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onItemDismiss(int position) {
-        list.remove(position);
-        notifyDataSetChanged();
+        if (itemDismissListener != null) {
+            itemDismissListener.onItemDismiss(position);
+        } else {
+            list.remove(position);
+            notifyDataSetChanged();
+        }
     }
 
     /**
@@ -58,5 +64,14 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
         ItemTouchHelper.Callback callback = new ItemSwipeCallback(this);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    /**
+     * Set a listener for a dismissal event.
+     *
+     * @param itemDismissListener {@link ItemSwipeCallback.ItemDismissListener}
+     */
+    public void setItemDismissListener(ItemSwipeCallback.ItemDismissListener itemDismissListener) {
+        this.itemDismissListener = itemDismissListener;
     }
 }
