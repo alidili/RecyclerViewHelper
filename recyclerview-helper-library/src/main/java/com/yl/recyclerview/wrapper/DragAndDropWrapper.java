@@ -2,8 +2,6 @@ package com.yl.recyclerview.wrapper;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.yl.recyclerview.helper.ItemMoveCallback;

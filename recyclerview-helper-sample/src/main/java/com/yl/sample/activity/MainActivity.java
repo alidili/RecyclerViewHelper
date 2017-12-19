@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         itemList.add("Pull up to load more");
         itemList.add("HeaderView / FooterView");
         itemList.add("Drag & Drop");
+        itemList.add("Swipe to dismiss");
 
         MainAdapter mainAdapter = new MainAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,16 +58,20 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         Intent intent = null;
 
         switch (position) {
-            case 0:
+            case 0: // Pull up to load more
                 intent = new Intent(this, LoadMoreActivity.class);
                 break;
 
-            case 1:
+            case 1: // HeaderView / FooterView
                 intent = new Intent(this, HeaderAndFooterViewActivity.class);
                 break;
 
-            case 2:
+            case 2: // Drag & Drop
                 intent = new Intent(this, DragAndDropActivity.class);
+                break;
+
+            case 3: // Swipe to dismiss
+                intent = new Intent(this, SwipeToDismissActivity.class);
                 break;
 
             default:

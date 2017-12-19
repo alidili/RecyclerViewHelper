@@ -75,7 +75,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     }
 
     /**
-     * Interface to listen for a move or dismissal event from a {@link ItemTouchHelper.Callback}.
+     * Interface to listen for a move event from a {@link ItemTouchHelper.Callback}.
      */
     public interface ItemMoveListener {
 
