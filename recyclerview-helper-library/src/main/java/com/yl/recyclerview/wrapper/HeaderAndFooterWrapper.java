@@ -16,41 +16,41 @@ import android.view.ViewGroup;
 public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Origin adapter
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     // Header view type
     private final int TYPE_HEADER = 1000;
     // Footer view type
     private final int TYPE_FOOTER = 2000;
     // Header view list
-    private SparseArrayCompat<View> headerViews = new SparseArrayCompat<>();
+    private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
     // Footer view list
-    private SparseArrayCompat<View> footerViews = new SparseArrayCompat<>();
+    private SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
 
     public HeaderAndFooterWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
-        this.adapter = adapter;
+        this.mAdapter = adapter;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (isHeaderView(position)) {
-            return headerViews.keyAt(position);
+            return mHeaderViews.keyAt(position);
 
         } else if (isFooterView(position)) {
-            return footerViews.keyAt(position - getHeaderViewCount() - getItemViewCount());
+            return mFooterViews.keyAt(position - getHeaderViewCount() - getItemViewCount());
         }
-        return adapter.getItemViewType(position - getHeaderViewCount());
+        return mAdapter.getItemViewType(position - getHeaderViewCount());
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create view by the view type.
-        if (headerViews.get(viewType) != null) {
-            return new HeaderAndFooterViewHolder(headerViews.get(viewType));
+        if (mHeaderViews.get(viewType) != null) {
+            return new HeaderAndFooterViewHolder(mHeaderViews.get(viewType));
 
-        } else if (footerViews.get(viewType) != null) {
-            return new HeaderAndFooterViewHolder(footerViews.get(viewType));
+        } else if (mFooterViews.get(viewType) != null) {
+            return new HeaderAndFooterViewHolder(mFooterViews.get(viewType));
         }
-        return adapter.createViewHolder(parent, viewType);
+        return mAdapter.createViewHolder(parent, viewType);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         if (isHeaderView(position) || isFooterView(position)) {
             return;
         }
-        adapter.onBindViewHolder(holder, position - getHeaderViewCount());
+        mAdapter.onBindViewHolder(holder, position - getHeaderViewCount());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      * @return item view count
      */
     public int getItemViewCount() {
-        return adapter.getItemCount();
+        return mAdapter.getItemCount();
     }
 
     /**
@@ -132,7 +132,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      * @return header view count
      */
     public int getHeaderViewCount() {
-        return headerViews.size();
+        return mHeaderViews.size();
     }
 
     /**
@@ -141,7 +141,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      * @return footer view count
      */
     public int getFooterViewCount() {
-        return footerViews.size();
+        return mFooterViews.size();
     }
 
     /**
@@ -150,7 +150,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      * @param view View
      */
     public void addHeaderView(View view) {
-        headerViews.append(getHeaderViewCount() + TYPE_HEADER, view);
+        mHeaderViews.append(getHeaderViewCount() + TYPE_HEADER, view);
     }
 
     /**
@@ -159,6 +159,6 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      * @param view View
      */
     public void addFooterView(View view) {
-        footerViews.append(getFooterViewCount() + TYPE_FOOTER, view);
+        mFooterViews.append(getFooterViewCount() + TYPE_FOOTER, view);
     }
 }

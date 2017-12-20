@@ -12,10 +12,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class ItemSwipeCallback extends ItemTouchHelper.Callback {
 
-    private ItemDismissListener itemDismissListener;
+    private ItemDismissListener mItemDismissListener;
 
     public ItemSwipeCallback(ItemDismissListener itemDismissListener) {
-        this.itemDismissListener = itemDismissListener;
+        this.mItemDismissListener = itemDismissListener;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ItemSwipeCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         // Notify the adapter of the dismissal.
-        itemDismissListener.onItemDismiss(viewHolder.getAdapterPosition());
+        mItemDismissListener.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
     /**

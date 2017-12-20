@@ -21,41 +21,42 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
         implements ItemMoveCallback.ItemMoveListener {
 
     // Origin adapter
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     // Data list
-    private List<?> list;
+    private List<?> mDataList;
     // ItemTouchHelper
-    private ItemTouchHelper itemTouchHelper;
+    private ItemTouchHelper mItemTouchHelper;
     // Default long click delay 200ms.
-    private long delay = 200;
+    private long mDelay = 200;
 
-    public DragAndDropWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> list) {
-        this.adapter = adapter;
-        this.list = list;
+    public DragAndDropWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> dataList) {
+        this.mAdapter = adapter;
+        this.mDataList = dataList;
     }
 
-    public DragAndDropWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> list, long delay) {
-        this.adapter = adapter;
-        this.list = list;
-        this.delay = delay;
+    public DragAndDropWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> dataList,
+                              long delay) {
+        this.mAdapter = adapter;
+        this.mDataList = dataList;
+        this.mDelay = delay;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return adapter.onCreateViewHolder(parent, viewType);
+        return mAdapter.onCreateViewHolder(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        adapter.onBindViewHolder(holder, position);
+        mAdapter.onBindViewHolder(holder, position);
 
         // Custom delay long click listener.
         // The item root view must be clickable.
-        holder.itemView.setOnTouchListener(new OnLongClickListener(delay) {
+        holder.itemView.setOnTouchListener(new OnLongClickListener(mDelay) {
             @Override
             public void onLongClickListener() {
-                if (itemTouchHelper != null) {
-                    itemTouchHelper.startDrag(holder);
+                if (mItemTouchHelper != null) {
+                    mItemTouchHelper.startDrag(holder);
                 }
             }
         });
@@ -63,12 +64,12 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return adapter.getItemCount();
+        return mAdapter.getItemCount();
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(list, fromPosition, toPosition);
+        Collections.swap(mDataList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
@@ -91,7 +92,7 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     public void attachToRecyclerView(RecyclerView recyclerView, boolean isFreedom) {
         ItemTouchHelper.Callback callback = new ItemMoveCallback(this, isFreedom);
-        itemTouchHelper = new ItemTouchHelper(callback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }

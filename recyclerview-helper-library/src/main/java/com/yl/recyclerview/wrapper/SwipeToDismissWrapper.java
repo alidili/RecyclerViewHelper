@@ -19,38 +19,38 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
         implements ItemSwipeCallback.ItemDismissListener {
 
     // Origin adapter
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     // Data list
-    private List<?> list;
+    private List<?> mDataList;
     // A listener for a dismissal event.
-    private ItemSwipeCallback.ItemDismissListener itemDismissListener;
+    private ItemSwipeCallback.ItemDismissListener mItemDismissListener;
 
-    public SwipeToDismissWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> list) {
-        this.adapter = adapter;
-        this.list = list;
+    public SwipeToDismissWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> dataList) {
+        this.mAdapter = adapter;
+        this.mDataList = dataList;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return adapter.onCreateViewHolder(parent, viewType);
+        return mAdapter.onCreateViewHolder(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        adapter.onBindViewHolder(holder, position);
+        mAdapter.onBindViewHolder(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        return adapter.getItemCount();
+        return mAdapter.getItemCount();
     }
 
     @Override
     public void onItemDismiss(int position) {
-        if (itemDismissListener != null) {
-            itemDismissListener.onItemDismiss(position);
+        if (mItemDismissListener != null) {
+            mItemDismissListener.onItemDismiss(position);
         } else {
-            list.remove(position);
+            mDataList.remove(position);
             notifyDataSetChanged();
         }
     }
@@ -72,6 +72,6 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
      * @param itemDismissListener {@link ItemSwipeCallback.ItemDismissListener}
      */
     public void setItemDismissListener(ItemSwipeCallback.ItemDismissListener itemDismissListener) {
-        this.itemDismissListener = itemDismissListener;
+        this.mItemDismissListener = itemDismissListener;
     }
 }

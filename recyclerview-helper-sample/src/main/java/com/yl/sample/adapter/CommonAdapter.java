@@ -19,10 +19,10 @@ import java.util.List;
 
 public class CommonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> dataList;
+    private List<String> mDataList;
 
     public CommonAdapter(List<String> dataList) {
-        this.dataList = dataList;
+        this.mDataList = dataList;
     }
 
     @Override
@@ -35,12 +35,12 @@ public class CommonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
-        recyclerViewHolder.tvItem.setText(dataList.get(position));
+        recyclerViewHolder.tvItem.setText(mDataList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return mDataList.size();
     }
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {

@@ -28,9 +28,9 @@ import java.util.List;
 
 public class HeaderAndFooterViewActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private HeaderAndFooterWrapper headerAndFooterWrapper;
-    private List<String> dataList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
+    private List<String> mDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +42,18 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
 
     private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         // Toolbar replace ActionBar
         setSupportActionBar(toolbar);
 
         // Simulate get data
         getData();
-        CommonAdapter commonAdapter = new CommonAdapter(dataList);
-        headerAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
+        CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+        mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
         addHeaderAndFooterView();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(headerAndFooterWrapper);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
     }
 
     /**
@@ -64,13 +64,13 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
         View headerView = View.inflate(this, R.layout.layout_header_footer, null);
         TextView headerItem = headerView.findViewById(R.id.tv_item);
         headerItem.setText("HeaderView");
-        headerAndFooterWrapper.addHeaderView(headerView);
+        mHeaderAndFooterWrapper.addHeaderView(headerView);
 
         // Add footer view
         View footerView = View.inflate(this, R.layout.layout_header_footer, null);
         TextView footerItem = footerView.findViewById(R.id.tv_item);
         footerItem.setText("FooterView");
-        headerAndFooterWrapper.addFooterView(footerView);
+        mHeaderAndFooterWrapper.addFooterView(footerView);
     }
 
     /**
@@ -79,7 +79,7 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {
-            dataList.add(String.valueOf(letter));
+            mDataList.add(String.valueOf(letter));
             letter++;
         }
     }
@@ -95,16 +95,16 @@ public class HeaderAndFooterViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.liner_layout:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
 
             case R.id.grid_layout:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
         }
-        dataList.clear();
+        mDataList.clear();
         getData();
-        recyclerView.setAdapter(headerAndFooterWrapper);
+        mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
         return super.onOptionsItemSelected(item);
     }
 }

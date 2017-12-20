@@ -20,11 +20,11 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> itemList;
-    private OnItemClickListener onItemClickListener;
+    private List<String> mItemList;
+    private OnItemClickListener mItemClickListener;
 
     public MainAdapter(List<String> itemList) {
-        this.itemList = itemList;
+        this.mItemList = itemList;
     }
 
     @Override
@@ -37,14 +37,14 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final MainHolder mainHolder = (MainHolder) holder;
-        mainHolder.tvItem.setText(itemList.get(position));
+        mainHolder.tvItem.setText(mItemList.get(position));
 
         // Set item click listener
-        if (onItemClickListener != null) {
+        if (mItemClickListener != null) {
             mainHolder.cvItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(mainHolder.cvItem, mainHolder.getAdapterPosition());
+                    mItemClickListener.onItemClick(mainHolder.cvItem, mainHolder.getAdapterPosition());
                 }
             });
         }
@@ -52,7 +52,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return mItemList.size();
     }
 
     private class MainHolder extends RecyclerView.ViewHolder {
@@ -73,7 +73,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * @param onItemClickListener Click callback interface
      */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        this.mItemClickListener = onItemClickListener;
     }
 
     /**

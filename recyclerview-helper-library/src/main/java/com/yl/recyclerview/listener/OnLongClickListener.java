@@ -18,57 +18,57 @@ import java.util.TimerTask;
 
 public abstract class OnLongClickListener implements View.OnTouchListener {
 
-    private int x, y, downX, downY;
-    private Timer timer;
+    private int mX, mY, mDownX, mDownY;
+    private Timer mTimer;
     // Default long click delay 200ms.
-    private long delay = 200;
+    private long mDelay = 200;
 
     public OnLongClickListener() {
     }
 
     public OnLongClickListener(long delay) {
-        this.delay = delay;
+        this.mDelay = delay;
     }
 
     @Override
     public boolean onTouch(final View view, MotionEvent motionEvent) {
-        x = (int) motionEvent.getX();
-        y = (int) motionEvent.getY();
+        mX = (int) motionEvent.getX();
+        mY = (int) motionEvent.getY();
 
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // Record coordinate
-                downX = x;
-                downY = y;
+                mDownX = mX;
+                mDownY = mY;
 
                 // Delay response
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
+                mTimer = new Timer();
+                mTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         ((Activity) view.getContext()).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 // Offset 10dp
-                                float offsetX = Math.abs(x - downX);
-                                float offsetY = Math.abs(y - downY);
+                                float offsetX = Math.abs(mX - mDownX);
+                                float offsetY = Math.abs(mY - mDownY);
                                 float offsetLevel = dp2px(view.getContext(), 10);
                                 if (offsetX <= offsetLevel && offsetY <= offsetLevel) {
                                     onLongClickListener();
-                                    timer = null;
+                                    mTimer = null;
                                 }
                             }
                         });
                     }
-                }, delay);
+                }, mDelay);
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 break;
 
             case MotionEvent.ACTION_UP:
-                if (timer != null) {
-                    timer.cancel();
+                if (mTimer != null) {
+                    mTimer.cancel();
                 }
                 break;
         }

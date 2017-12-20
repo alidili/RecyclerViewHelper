@@ -30,9 +30,9 @@ import java.util.List;
 
 public class SwipeToDismissActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private SwipeToDismissWrapper swipeToDismissWrapper;
-    private List<String> dataList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private SwipeToDismissWrapper mSwipeToDismissWrapper;
+    private List<String> mDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,21 +44,21 @@ public class SwipeToDismissActivity extends AppCompatActivity {
 
     private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         // Toolbar replace ActionBar
         setSupportActionBar(toolbar);
 
         // Simulate get data
         getData();
-        CommonAdapter commonAdapter = new CommonAdapter(dataList);
-        swipeToDismissWrapper = new SwipeToDismissWrapper(commonAdapter, dataList);
-        swipeToDismissWrapper.attachToRecyclerView(recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(swipeToDismissWrapper);
+        CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+        mSwipeToDismissWrapper = new SwipeToDismissWrapper(commonAdapter, mDataList);
+        mSwipeToDismissWrapper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mSwipeToDismissWrapper);
 
         // Set a listener for a dismissal event.
-        swipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissListener() {
+        mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissListener() {
             @Override
             public void onItemDismiss(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SwipeToDismissActivity.this);
@@ -66,15 +66,15 @@ public class SwipeToDismissActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dataList.remove(position);
-                                swipeToDismissWrapper.notifyDataSetChanged();
+                                mDataList.remove(position);
+                                mSwipeToDismissWrapper.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                swipeToDismissWrapper.notifyDataSetChanged();
+                                mSwipeToDismissWrapper.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         })
@@ -89,7 +89,7 @@ public class SwipeToDismissActivity extends AppCompatActivity {
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {
-            dataList.add(String.valueOf(letter));
+            mDataList.add(String.valueOf(letter));
             letter++;
         }
     }
@@ -105,16 +105,16 @@ public class SwipeToDismissActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.liner_layout:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
 
             case R.id.grid_layout:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
         }
-        dataList.clear();
+        mDataList.clear();
         getData();
-        recyclerView.setAdapter(swipeToDismissWrapper);
+        mRecyclerView.setAdapter(mSwipeToDismissWrapper);
         return super.onOptionsItemSelected(item);
     }
 }

@@ -27,9 +27,9 @@ import java.util.List;
 
 public class DragAndDropActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private DragAndDropWrapper dragAndDropWrapper;
-    private List<String> dataList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private DragAndDropWrapper mDragAndDropWrapper;
+    private List<String> mDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,18 +41,18 @@ public class DragAndDropActivity extends AppCompatActivity {
 
     private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         // Toolbar replace ActionBar
         setSupportActionBar(toolbar);
 
         // Simulate get data
         getData();
-        CommonAdapter commonAdapter = new CommonAdapter(dataList);
-        dragAndDropWrapper = new DragAndDropWrapper(commonAdapter, dataList);
-        dragAndDropWrapper.attachToRecyclerView(recyclerView, true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(dragAndDropWrapper);
+        CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+        mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList);
+        mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mDragAndDropWrapper);
     }
 
     /**
@@ -61,7 +61,7 @@ public class DragAndDropActivity extends AppCompatActivity {
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {
-            dataList.add(String.valueOf(letter));
+            mDataList.add(String.valueOf(letter));
             letter++;
         }
     }
@@ -77,16 +77,16 @@ public class DragAndDropActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.liner_layout:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
 
             case R.id.grid_layout:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
         }
-        dataList.clear();
+        mDataList.clear();
         getData();
-        recyclerView.setAdapter(dragAndDropWrapper);
+        mRecyclerView.setAdapter(mDragAndDropWrapper);
         return super.onOptionsItemSelected(item);
     }
 }

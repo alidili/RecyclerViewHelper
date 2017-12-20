@@ -20,15 +20,15 @@ import com.yl.recyclerview.R;
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Context
-    private Context context;
+    private Context mContext;
     // Origin adapter
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
     // General view
     private final int TYPE_ITEM = 1;
     // Footer view
     private final int TYPE_FOOTER = 2;
     // The current loading state, the default is loading complete.
-    private int loadingState = 2;
+    private int mLoadingState = 2;
     // Loading
     public final int LOADING = 1;
     // Loading done
@@ -36,14 +36,14 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // Loading end
     public final int LOADING_END = 3;
     // Loading view
-    private View loadingView;
+    private View mLoadingView;
     // Loading end view
-    private View loadingEndView;
+    private View mLoadingEndView;
     // Loading view height
-    private int loadingViewHeight;
+    private int mLoadingViewHeight;
 
     public LoadMoreWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
-        this.adapter = adapter;
+        this.mAdapter = adapter;
     }
 
     @Override
@@ -59,14 +59,14 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Get context
-        this.context = parent.getContext();
+        this.mContext = parent.getContext();
 
         // Create view by the view type.
         if (viewType == TYPE_FOOTER) {
-            View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_footer, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.layout_loading_footer, parent, false);
             return new LoadMoreViewHolder(view);
         } else {
-            return adapter.onCreateViewHolder(parent, viewType);
+            return mAdapter.onCreateViewHolder(parent, viewType);
         }
     }
 
@@ -77,22 +77,22 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             // Set loading view height.
             loadMoreViewHolder.rlLoadingFooter.removeAllViews();
-            if (loadingViewHeight > 0) {
+            if (mLoadingViewHeight > 0) {
                 RelativeLayout.LayoutParams params =
                         (RelativeLayout.LayoutParams) loadMoreViewHolder.rlLoadingFooter.getLayoutParams();
-                params.height = loadingViewHeight;
+                params.height = mLoadingViewHeight;
                 loadMoreViewHolder.rlLoadingFooter.setLayoutParams(params);
             }
 
             // Display loading view.
-            switch (loadingState) {
+            switch (mLoadingState) {
                 case LOADING: // Loading
-                    if (loadingView != null) {
+                    if (mLoadingView != null) {
                         // Custom loading view
-                        loadMoreViewHolder.rlLoadingFooter.addView(loadingView);
+                        loadMoreViewHolder.rlLoadingFooter.addView(mLoadingView);
                     } else {
                         // Default loading view
-                        View loadingView = View.inflate(context, R.layout.layout_loading, null);
+                        View loadingView = View.inflate(mContext, R.layout.layout_loading, null);
                         loadMoreViewHolder.rlLoadingFooter.addView(loadingView);
                     }
                     break;
@@ -102,12 +102,12 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     break;
 
                 case LOADING_END: // Loading end
-                    if (loadingEndView != null) {
+                    if (mLoadingEndView != null) {
                         // Custom loading end view
-                        loadMoreViewHolder.rlLoadingFooter.addView(loadingEndView);
+                        loadMoreViewHolder.rlLoadingFooter.addView(mLoadingEndView);
                     } else {
                         // Default loading end view
-                        View loadingEndView = View.inflate(context, R.layout.layout_loading_end, null);
+                        View loadingEndView = View.inflate(mContext, R.layout.layout_loading_end, null);
                         loadMoreViewHolder.rlLoadingFooter.addView(loadingEndView);
                     }
                     break;
@@ -116,13 +116,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     break;
             }
         } else {
-            adapter.onBindViewHolder(holder, position);
+            mAdapter.onBindViewHolder(holder, position);
         }
     }
 
     @Override
     public int getItemCount() {
-        return adapter.getItemCount() + 1;
+        return mAdapter.getItemCount() + 1;
     }
 
     @Override
@@ -163,7 +163,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param loadingState 0.Loading 1.Loading done 2.Loading end
      */
     public void setLoadState(int loadingState) {
-        this.loadingState = loadingState;
+        this.mLoadingState = loadingState;
         notifyDataSetChanged();
     }
 
@@ -173,7 +173,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param view Loading view
      */
     public void setLoadingView(View view) {
-        this.loadingView = view;
+        this.mLoadingView = view;
     }
 
     /**
@@ -182,7 +182,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param view Loading end view
      */
     public void setLoadingEndView(View view) {
-        this.loadingEndView = view;
+        this.mLoadingEndView = view;
     }
 
     /**
@@ -191,6 +191,6 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param height Height/px
      */
     public void setLoadingViewHeight(int height) {
-        this.loadingViewHeight = loadingViewHeight;
+        this.mLoadingViewHeight = height;
     }
 }

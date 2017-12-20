@@ -1,6 +1,5 @@
 package com.yl.recyclerview.helper;
 
-import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,18 +13,18 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
-    private ItemMoveListener itemMoveListener;
+    private ItemMoveListener mItemMoveListener;
     // true: item can move up|down|left|right
     // false: item can move up|down
-    private boolean isFreedom;
+    private boolean mIsFreedom;
 
     public ItemMoveCallback(ItemMoveListener itemMoveListener) {
-        this.itemMoveListener = itemMoveListener;
+        this.mItemMoveListener = itemMoveListener;
     }
 
     public ItemMoveCallback(ItemMoveListener itemMoveListener, boolean isFreedom) {
-        this.itemMoveListener = itemMoveListener;
-        this.isFreedom = isFreedom;
+        this.mItemMoveListener = itemMoveListener;
+        this.mIsFreedom = isFreedom;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
             dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN
                     | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
         } else {
-            if (isFreedom) {
+            if (mIsFreedom) {
                 dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN
                         | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
             } else {
@@ -65,7 +64,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
         }
 
         // Notify the adapter of the move.
-        itemMoveListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        mItemMoveListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
 

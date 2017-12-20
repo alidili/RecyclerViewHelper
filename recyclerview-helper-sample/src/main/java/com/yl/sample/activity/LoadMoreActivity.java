@@ -35,10 +35,10 @@ import java.util.TimerTask;
 
 public class LoadMoreActivity extends AppCompatActivity {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
-    private LoadMoreWrapper loadMoreWrapper;
-    private List<String> dataList = new ArrayList<>();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private LoadMoreWrapper mLoadMoreWrapper;
+    private List<String> mDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,38 +50,38 @@ public class LoadMoreActivity extends AppCompatActivity {
 
     private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        recyclerView = findViewById(R.id.recycler_view);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         // Toolbar replace ActionBar
         setSupportActionBar(toolbar);
 
         // Set the refresh view color
-        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4DB6AC"));
+        mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4DB6AC"));
 
         // Simulate get data
         getData();
-        CommonAdapter commonAdapter = new CommonAdapter(dataList);
-        loadMoreWrapper = new LoadMoreWrapper(commonAdapter);
+        CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+        mLoadMoreWrapper = new LoadMoreWrapper(commonAdapter);
         //customLoadingView();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(loadMoreWrapper);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mLoadMoreWrapper);
 
         // Set the pull-down refresh
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh data
-                dataList.clear();
+                mDataList.clear();
                 getData();
-                loadMoreWrapper.notifyDataSetChanged();
+                mLoadMoreWrapper.notifyDataSetChanged();
 
                 // Delay 1s close
-                swipeRefreshLayout.postDelayed(new Runnable() {
+                mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
+                        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+                            mSwipeRefreshLayout.setRefreshing(false);
                         }
                     }
                 }, 1000);
@@ -89,12 +89,12 @@ public class LoadMoreActivity extends AppCompatActivity {
         });
 
         // Set the load more listener
-        recyclerView.addOnScrollListener(new OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onLoadMore() {
-                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING);
 
-                if (dataList.size() < 52) {
+                if (mDataList.size() < 52) {
                     // Simulate get network data，delay 1s
                     new Timer().schedule(new TimerTask() {
                         @Override
@@ -103,14 +103,14 @@ public class LoadMoreActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     getData();
-                                    loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+                                    mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING_COMPLETE);
                                 }
                             });
                         }
                     }, 1000);
                 } else {
                     // Show loading end
-                    loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+                    mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING_END);
                 }
             }
         });
@@ -122,15 +122,15 @@ public class LoadMoreActivity extends AppCompatActivity {
     private void customLoadingView() {
         // Custom loading view
         ProgressBar progressBar = new ProgressBar(this);
-        loadMoreWrapper.setLoadingView(progressBar);
+        mLoadMoreWrapper.setLoadingView(progressBar);
 
         // Custom loading end view
         TextView textView = new TextView(this);
         textView.setText("End");
-        loadMoreWrapper.setLoadingEndView(textView);
+        mLoadMoreWrapper.setLoadingEndView(textView);
 
         // Custom loading height
-        loadMoreWrapper.setLoadingViewHeight(DensityUtils.dp2px(this, 50));
+        mLoadMoreWrapper.setLoadingViewHeight(DensityUtils.dp2px(this, 50));
     }
 
     /**
@@ -139,7 +139,7 @@ public class LoadMoreActivity extends AppCompatActivity {
     private void getData() {
         char letter = 'A';
         for (int i = 0; i < 26; i++) {
-            dataList.add(String.valueOf(letter));
+            mDataList.add(String.valueOf(letter));
             letter++;
         }
     }
@@ -155,16 +155,16 @@ public class LoadMoreActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.liner_layout:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                 break;
 
             case R.id.grid_layout:
-                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 break;
         }
-        dataList.clear();
+        mDataList.clear();
         getData();
-        recyclerView.setAdapter(loadMoreWrapper);
+        mRecyclerView.setAdapter(mLoadMoreWrapper);
         return super.onOptionsItemSelected(item);
     }
 }

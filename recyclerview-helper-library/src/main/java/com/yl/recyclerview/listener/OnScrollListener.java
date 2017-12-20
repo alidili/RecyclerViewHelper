@@ -13,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
 public abstract class OnScrollListener extends RecyclerView.OnScrollListener {
 
     // Used to mark whether scroll up.
-    private boolean isScrollUp = false;
+    private boolean mIsScrollUp = false;
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -26,7 +26,7 @@ public abstract class OnScrollListener extends RecyclerView.OnScrollListener {
             int itemCount = manager.getItemCount();
 
             // Scroll to the last item, and it's scroll up.
-            if (lastItemPosition == (itemCount - 1) && isScrollUp) {
+            if (lastItemPosition == (itemCount - 1) && mIsScrollUp) {
                 // Load More
                 onLoadMore();
             }
@@ -37,7 +37,7 @@ public abstract class OnScrollListener extends RecyclerView.OnScrollListener {
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         // > 0 indicates that it is scroll up, <= 0 means stop or scroll down.
-        isScrollUp = dy > 0;
+        mIsScrollUp = dy > 0;
     }
 
     /**
