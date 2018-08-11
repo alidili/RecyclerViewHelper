@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RecyclerViewHelper.iml" filepath="$PROJECT_DIR$/RecyclerViewHelper.iml" />
-      <module fileurl="file://D:\git\RecyclerViewHelper\recyclerview-helper-sample\app.iml" filepath="D:\git\RecyclerViewHelper\recyclerview-helper-sample\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/recyclerview-helper-library/recyclerview-helper-library.iml" filepath="$PROJECT_DIR$/recyclerview-helper-library/recyclerview-helper-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/recyclerview-helper-sample/recyclerview-helper-sample.iml" filepath="$PROJECT_DIR$/recyclerview-helper-sample/recyclerview-helper-sample.iml" />
     </modules>
