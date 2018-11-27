@@ -20,6 +20,7 @@
         <activity android:name=".activity.HeaderAndFooterViewActivity" />
         <activity android:name=".activity.DragAndDropActivity" />
         <activity android:name=".activity.SwipeToDismissActivity" />
+        <activity android:name=".activity.SuperDividerItemDecorationActivity" />
     </application>
 
 </manifest>

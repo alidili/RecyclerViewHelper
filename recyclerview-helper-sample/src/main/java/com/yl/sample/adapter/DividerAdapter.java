@@ -12,24 +12,24 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Common adapter.
+ * Divider item decoration adapter.
  * <p>
- * Created by yangle on 2017/10/26.
+ * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
 
-public class CommonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DividerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> mDataList;
 
-    public CommonAdapter(List<String> dataList) {
+    public DividerAdapter(List<String> dataList) {
         this.mDataList = dataList;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_common, parent, false);
+                .inflate(R.layout.adapter_divider, parent, false);
         return new RecyclerViewHolder(view);
     }
 

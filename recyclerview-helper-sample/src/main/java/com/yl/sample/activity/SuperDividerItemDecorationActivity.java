@@ -4,38 +4,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.yl.recyclerview.wrapper.HeaderAndFooterWrapper;
+import com.yl.recyclerview.widget.SuperDividerItemDecoration;
 import com.yl.sample.R;
-import com.yl.sample.adapter.CommonAdapter;
+import com.yl.sample.adapter.DividerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Header view and footer view sample.
+ * RecyclerView divider sample.
  * <p>
- * Created by yangle on 2017/11/14.
+ * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
 
-public class HeaderAndFooterViewActivity extends BaseActivity {
+public class SuperDividerItemDecorationActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
-    private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
     private List<String> mDataList = new ArrayList<>();
+    private DividerAdapter mDividerAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_common);
+        setContentView(R.layout.activity_divider);
 
         init();
     }
@@ -49,28 +49,11 @@ public class HeaderAndFooterViewActivity extends BaseActivity {
 
         // Simulate get data
         getData();
-        CommonAdapter commonAdapter = new CommonAdapter(mDataList);
-        mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
-        addHeaderAndFooterView();
+        mDividerAdapter = new DividerAdapter(mDataList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
-    }
-
-    /**
-     * Add header view and footer view.
-     */
-    private void addHeaderAndFooterView() {
-        // Add header view
-        View headerView = View.inflate(this, R.layout.layout_header_footer, null);
-        TextView headerItem = headerView.findViewById(R.id.tv_item);
-        headerItem.setText("HeaderView");
-        mHeaderAndFooterWrapper.addHeaderView(headerView);
-
-        // Add footer view
-        View footerView = View.inflate(this, R.layout.layout_header_footer, null);
-        TextView footerItem = footerView.findViewById(R.id.tv_item);
-        footerItem.setText("FooterView");
-        mHeaderAndFooterWrapper.addFooterView(footerView);
+        SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this, LinearLayout.VERTICAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        mRecyclerView.setAdapter(mDividerAdapter);
     }
 
     /**
@@ -104,7 +87,7 @@ public class HeaderAndFooterViewActivity extends BaseActivity {
         }
         mDataList.clear();
         getData();
-        mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
+        mRecyclerView.setAdapter(mDividerAdapter);
         return super.onOptionsItemSelected(item);
     }
 }

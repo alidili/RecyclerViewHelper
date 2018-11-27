@@ -2,13 +2,6 @@ package com.yl.sample.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +14,13 @@ import com.yl.sample.adapter.CommonAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Swipe to dismiss sample.
  * <p>
@@ -28,7 +28,7 @@ import java.util.List;
  * Website：http://www.yangle.tech
  */
 
-public class SwipeToDismissActivity extends AppCompatActivity {
+public class SwipeToDismissActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private SwipeToDismissWrapper mSwipeToDismissWrapper;

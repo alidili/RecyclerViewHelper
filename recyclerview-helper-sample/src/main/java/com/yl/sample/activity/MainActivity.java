@@ -10,7 +10,6 @@ import com.yl.sample.adapter.MainAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Website：http://www.yangle.tech
  */
 
-public class MainActivity extends AppCompatActivity implements MainAdapter.OnItemClickListener {
+public class MainActivity extends BaseActivity implements MainAdapter.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         itemList.add("HeaderView / FooterView");
         itemList.add("Drag & Drop");
         itemList.add("Swipe to dismiss");
+        itemList.add("Divider item decoration");
 
         MainAdapter mainAdapter = new MainAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = null;
-
         switch (position) {
             case 0: // Pull up to load more
                 intent = new Intent(this, LoadMoreActivity.class);
@@ -75,10 +74,13 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
                 intent = new Intent(this, SwipeToDismissActivity.class);
                 break;
 
+            case 4: // Divider item decoration
+                intent = new Intent(this, SuperDividerItemDecorationActivity.class);
+                break;
+
             default:
                 break;
         }
-
         if (intent != null) {
             startActivity(intent);
         }

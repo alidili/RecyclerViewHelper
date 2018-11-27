@@ -2,12 +2,6 @@ package com.yl.sample.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +19,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 /**
  * Pull down to refresh sample.
  * Pull up to load more.
@@ -33,7 +33,7 @@ import java.util.TimerTask;
  * Website：http://www.yangle.tech
  */
 
-public class LoadMoreActivity extends AppCompatActivity {
+public class LoadMoreActivity extends BaseActivity {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
