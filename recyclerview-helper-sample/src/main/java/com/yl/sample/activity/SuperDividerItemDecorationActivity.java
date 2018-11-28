@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 import com.yl.recyclerview.widget.SuperDividerItemDecoration;
 import com.yl.sample.R;
@@ -50,8 +49,11 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
         // Simulate get data
         getData();
         mDividerAdapter = new DividerAdapter(mDataList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this, LinearLayout.VERTICAL);
+        SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this,
+                linearLayoutManager);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mDividerAdapter);
     }
@@ -76,14 +78,25 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SuperDividerItemDecoration dividerItemDecoration = null;
         switch (item.getItemId()) {
             case R.id.liner_layout:
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                mRecyclerView.setLayoutManager(linearLayoutManager);
+                dividerItemDecoration = new SuperDividerItemDecoration(this, linearLayoutManager);
+                dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
                 break;
 
             case R.id.grid_layout:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, RecyclerView.VERTICAL, false);
+                mRecyclerView.setLayoutManager(gridLayoutManager);
+                dividerItemDecoration = new SuperDividerItemDecoration(this, gridLayoutManager);
                 break;
+        }
+        if (dividerItemDecoration != null) {
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
+            mRecyclerView.addItemDecoration(dividerItemDecoration);
+            mRecyclerView.removeItemDecorationAt(0);
         }
         mDataList.clear();
         getData();
