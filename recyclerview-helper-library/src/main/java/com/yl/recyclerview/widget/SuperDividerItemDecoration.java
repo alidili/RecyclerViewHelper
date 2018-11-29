@@ -1,12 +1,13 @@
 package com.yl.recyclerview.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.yl.recyclerview.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,6 +30,8 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
     public static final int VERTICAL = LinearLayout.VERTICAL;
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
+    private int mDividerWidth;
+    private int mDividerHeight;
 
     /**
      * Current orientation. Either {@link #HORIZONTAL} or {@link #VERTICAL}.
@@ -46,12 +49,12 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
      *                      or {@link GridLayoutManager}.
      */
     public SuperDividerItemDecoration(Context context, RecyclerView.LayoutManager layoutManager) {
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        mDivider = context.getResources().getDrawable(R.drawable.bg_divider);
         if (mDivider == null || layoutManager == null) {
             return;
         }
-        a.recycle();
+        mDividerWidth = mDivider.getIntrinsicWidth();
+        mDividerHeight = mDivider.getIntrinsicHeight();
         if (layoutManager instanceof GridLayoutManager) {
             setOrientation(((GridLayoutManager) layoutManager).getOrientation());
         } else if (layoutManager instanceof LinearLayoutManager) {
@@ -61,7 +64,7 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Sets the orientation for this divider. This should be called if
-     * {@link RecyclerView.LayoutManager or {@link GridLayoutManager}} changes orientation.
+     * {@link RecyclerView.LayoutManager} changes orientation.
      *
      * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
      */
@@ -83,6 +86,34 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             throw new IllegalArgumentException("Drawable cannot be null.");
         }
         mDivider = drawable;
+        mDividerWidth = mDivider.getIntrinsicWidth();
+        mDividerHeight = mDivider.getIntrinsicHeight();
+    }
+
+    /**
+     * Sets width for this divider.
+     *
+     * @param dividerWidth Width that should be used to {@link LinearLayoutManager}
+     *                     or {@link GridLayoutManager}.
+     */
+    public void setDividerWidth(int dividerWidth) {
+        if (dividerWidth < 0) {
+            return;
+        }
+        this.mDividerWidth = dividerWidth;
+    }
+
+    /**
+     * Sets height for this divider.
+     *
+     * @param dividerHeight Height that should be used to {@link LinearLayoutManager}
+     *                      or {@link GridLayoutManager}.
+     */
+    public void setDividerHeight(int dividerHeight) {
+        if (dividerHeight < 0) {
+            return;
+        }
+        this.mDividerHeight = dividerHeight;
     }
 
     @Override
@@ -121,7 +152,7 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             final int left = mBounds.left;
             final int right = mBounds.right;
             final int bottom = mBounds.bottom + Math.round(child.getTranslationY());
-            final int top = bottom - mDivider.getIntrinsicHeight();
+            final int top = bottom - mDividerHeight;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
         }
@@ -146,7 +177,7 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             final int top = mBounds.top;
             final int bottom = mBounds.bottom;
             final int right = mBounds.right + Math.round(child.getTranslationX());
-            final int left = right - mDivider.getIntrinsicWidth();
+            final int left = right - mDividerWidth;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
         }
@@ -163,18 +194,18 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             if (isLastRow(view, parent)) {
-                outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+                outRect.set(0, 0, mDividerWidth, 0);
             } else if (isLastColumn(view, parent)) {
-                outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+                outRect.set(0, 0, 0, mDividerHeight);
             } else {
-                outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+                outRect.set(0, 0, mDividerWidth, mDividerHeight);
             }
 
         } else if (layoutManager instanceof LinearLayoutManager) {
             if (mOrientation == VERTICAL && !isLastRow(view, parent)) {
-                outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+                outRect.set(0, 0, 0, mDividerHeight);
             } else if (!isLastColumn(view, parent)) {
-                outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+                outRect.set(0, 0, mDividerWidth, 0);
             }
         }
     }

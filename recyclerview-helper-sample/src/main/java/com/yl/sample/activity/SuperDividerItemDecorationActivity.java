@@ -53,7 +53,7 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this,
                 linearLayoutManager);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mDividerAdapter);
     }
@@ -84,7 +84,7 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 mRecyclerView.setLayoutManager(linearLayoutManager);
                 dividerItemDecoration = new SuperDividerItemDecoration(this, linearLayoutManager);
-                dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
+                dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
                 break;
 
             case R.id.grid_layout:
@@ -94,7 +94,7 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
                 break;
         }
         if (dividerItemDecoration != null) {
-            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.bg_divider));
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
             mRecyclerView.addItemDecoration(dividerItemDecoration);
             mRecyclerView.removeItemDecorationAt(0);
         }
