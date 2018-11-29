@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         itemList.add("Drag & Drop");
         itemList.add("Swipe to dismiss");
         itemList.add("Divider item decoration");
+        itemList.add("Click / LongClick / Touch");
 
         MainAdapter mainAdapter = new MainAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,6 +77,10 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
 
             case 4: // Divider item decoration
                 intent = new Intent(this, SuperDividerItemDecorationActivity.class);
+                break;
+
+            case 5: // Click / LongClick / Touch
+                intent = new Intent(this, ClickActivity.class);
                 break;
 
             default:

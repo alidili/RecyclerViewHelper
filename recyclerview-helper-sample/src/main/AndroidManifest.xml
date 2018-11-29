@@ -21,6 +21,7 @@
         <activity android:name=".activity.DragAndDropActivity" />
         <activity android:name=".activity.SwipeToDismissActivity" />
         <activity android:name=".activity.SuperDividerItemDecorationActivity" />
+        <activity android:name=".activity.ClickActivity" />
     </application>
 
 </manifest>
