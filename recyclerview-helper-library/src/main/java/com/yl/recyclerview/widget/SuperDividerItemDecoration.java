@@ -123,19 +123,25 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
         if (layoutManager instanceof GridLayoutManager) {
-            drawHorizontal(c, parent);
-            drawVertical(c, parent);
+            drawVerticalLine(c, parent);
+            drawHorizontalLine(c, parent);
 
         } else if (layoutManager instanceof LinearLayoutManager) {
             if (mOrientation == VERTICAL) {
-                drawVertical(c, parent);
+                drawHorizontalLine(c, parent);
             } else {
-                drawHorizontal(c, parent);
+                drawVerticalLine(c, parent);
             }
         }
     }
 
-    private void drawVertical(Canvas canvas, RecyclerView parent) {
+    /**
+     * Draw a horizontal line.
+     *
+     * @param canvas Canvas
+     * @param parent RecyclerView
+     */
+    private void drawHorizontalLine(Canvas canvas, RecyclerView parent) {
         if (mDivider == null) {
             return;
         }
@@ -159,7 +165,13 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         canvas.restore();
     }
 
-    private void drawHorizontal(Canvas canvas, RecyclerView parent) {
+    /**
+     * Draw a vertical line.
+     *
+     * @param canvas Canvas
+     * @param parent RecyclerView
+     */
+    private void drawVerticalLine(Canvas canvas, RecyclerView parent) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager == null || mDivider == null) {
             return;
@@ -173,10 +185,10 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
                 continue;
             }
 
-            parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
+            layoutManager.getDecoratedBoundsWithMargins(child, mBounds);
             final int top = mBounds.top;
             final int bottom = mBounds.bottom;
-            final int right = mBounds.right + Math.round(child.getTranslationX());
+            final int right = mBounds.right + Math.round(child.getTranslationX()) + mDividerWidth / 2;
             final int left = right - mDividerWidth;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
@@ -194,11 +206,9 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             if (isLastRow(view, parent)) {
-                outRect.set(0, 0, mDividerWidth, 0);
-            } else if (isLastColumn(view, parent)) {
-                outRect.set(0, 0, 0, mDividerHeight);
+                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, 0);
             } else {
-                outRect.set(0, 0, mDividerWidth, mDividerHeight);
+                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, mDividerHeight);
             }
 
         } else if (layoutManager instanceof LinearLayoutManager) {
@@ -210,6 +220,13 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    /**
+     * Determine if it is the last row.
+     *
+     * @param view   ChildView
+     * @param parent RecyclerView
+     * @return true is the last row.
+     */
     private boolean isLastRow(View view, RecyclerView parent) {
         RecyclerView.Adapter adapter = parent.getAdapter();
         if (adapter == null) {
@@ -233,6 +250,13 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         return false;
     }
 
+    /**
+     * Determine if it is the last column.
+     *
+     * @param view   ChildView
+     * @param parent RecyclerView
+     * @return true is the last column.
+     */
     private boolean isLastColumn(View view, RecyclerView parent) {
         RecyclerView.Adapter adapter = parent.getAdapter();
         if (adapter == null) {
@@ -245,7 +269,7 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         if (layoutManager instanceof GridLayoutManager) {
             int spanCount = ((GridLayoutManager) layoutManager).getSpanCount();
             if (mOrientation == VERTICAL) {
-                return (position + 1) % spanCount == 0;
+                return (position + 1) % spanCount == 0 || position == childCount - 1;
             }
             childCount = childCount - childCount % spanCount;
             return position >= childCount;
