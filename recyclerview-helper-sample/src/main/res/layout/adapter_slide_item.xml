@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yl.recyclerview.widget.SlideItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slide_item"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#999999"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="置顶"
+                android:textColor="#FFF" />
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FF0000"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="#FFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.yl.recyclerview.widget.SlideItemView>

@@ -23,7 +23,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
-    implementation project(':recyclerview-helper-library')
     implementation "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
     implementation "androidx.cardview:cardview:$ANDROIDX_CARDVIEW_VERSION"
+    implementation project(':recyclerview-helper-library')
 }

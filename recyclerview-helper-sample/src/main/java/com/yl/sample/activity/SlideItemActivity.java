@@ -7,34 +7,34 @@ import android.view.MenuItem;
 
 import com.yl.recyclerview.widget.SuperDividerItemDecoration;
 import com.yl.sample.R;
-import com.yl.sample.adapter.DividerAdapter;
+import com.yl.sample.adapter.SlideItemAdapter;
+import com.yl.sample.utils.DensityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * RecyclerView divider sample.
+ * SlideItem sample.
  * <p>
- * Created by yangle on 2018/11/27.
+ * Created by yangle on 2019/1/4.
  * Website：http://www.yangle.tech
  */
 
-public class SuperDividerItemDecorationActivity extends BaseActivity {
+public class SlideItemActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
+    private SlideItemAdapter mSlideItemAdapter;
     private List<String> mDataList = new ArrayList<>();
-    private DividerAdapter mDividerAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_divider);
+        setContentView(R.layout.activity_common);
 
         init();
     }
@@ -48,14 +48,14 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
 
         // Simulate get data
         getData();
-        mDividerAdapter = new DividerAdapter(mDataList);
+        mSlideItemAdapter = new SlideItemAdapter(mDataList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this,
                 linearLayoutManager);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
+        dividerItemDecoration.setDividerHeight(DensityUtils.dp2px(this, 10));
         mRecyclerView.addItemDecoration(dividerItemDecoration);
-        mRecyclerView.setAdapter(mDividerAdapter);
+        mRecyclerView.setAdapter(mSlideItemAdapter);
     }
 
     /**
@@ -87,19 +87,19 @@ public class SuperDividerItemDecorationActivity extends BaseActivity {
                 break;
 
             case R.id.grid_layout:
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, RecyclerView.VERTICAL, false);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
                 mRecyclerView.setLayoutManager(gridLayoutManager);
                 dividerItemDecoration = new SuperDividerItemDecoration(this, gridLayoutManager);
                 break;
         }
         if (dividerItemDecoration != null) {
-            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
+            dividerItemDecoration.setDividerHeight(DensityUtils.dp2px(this, 10));
             mRecyclerView.addItemDecoration(dividerItemDecoration);
             mRecyclerView.removeItemDecorationAt(0);
         }
         mDataList.clear();
         getData();
-        mRecyclerView.setAdapter(mDividerAdapter);
+        mRecyclerView.setAdapter(mSlideItemAdapter);
         return super.onOptionsItemSelected(item);
     }
 }

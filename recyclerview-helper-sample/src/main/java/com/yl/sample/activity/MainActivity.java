@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         itemList.add("HeaderView / FooterView");
         itemList.add("Drag & Drop");
         itemList.add("Swipe to dismiss");
+        itemList.add("SlideItemView");
         itemList.add("Divider item decoration");
         itemList.add("Click / LongClick / Touch");
 
@@ -75,11 +76,15 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 intent = new Intent(this, SwipeToDismissActivity.class);
                 break;
 
-            case 4: // Divider item decoration
+            case 4: // SlideItemView
+                intent = new Intent(this, SlideItemActivity.class);
+                break;
+
+            case 5: // Divider item decoration
                 intent = new Intent(this, SuperDividerItemDecorationActivity.class);
                 break;
 
-            case 5: // Click / LongClick / Touch
+            case 6: // Click / LongClick / Touch
                 intent = new Intent(this, ClickActivity.class);
                 break;
 
