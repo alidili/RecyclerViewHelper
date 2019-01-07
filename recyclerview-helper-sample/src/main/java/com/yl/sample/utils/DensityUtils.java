@@ -13,11 +13,11 @@ import android.util.TypedValue;
 public class DensityUtils {
 
     /**
-     * dp转px
+     * dp to px
      *
-     * @param context 上下文
-     * @param dp      dp值
-     * @return px值
+     * @param context Context
+     * @param dp      dp value
+     * @return px value
      */
     public static int dp2px(Context context, float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
@@ -25,11 +25,11 @@ public class DensityUtils {
     }
 
     /**
-     * sp转px
+     * sp to px
      *
-     * @param context 上下文
-     * @param sp      sp值
-     * @return px值
+     * @param context Context
+     * @param sp      sp value
+     * @return px value
      */
     public static int sp2px(Context context, float sp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,

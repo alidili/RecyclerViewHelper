@@ -120,4 +120,12 @@ public class SlideItemView extends HorizontalScrollView {
     public void setSlideLimit(int slideLimit) {
         this.mSlideLimit = slideLimit;
     }
+
+    /**
+     * Smooth scroll to (0, 0)
+     */
+    public void reset() {
+        mIsExpansion = false;
+        smoothScrollTo(0, 0);
+    }
 }

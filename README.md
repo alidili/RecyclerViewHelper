@@ -1,4 +1,32 @@
-# In development
+# RecyclerViewHelper
+
+[![](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper) 
+
+[![](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk) 
+
+[![](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+
+[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/alidili/RecyclerViewHelper/blob/master/LICENSE) 
+
+## Dependency
+
+Add this in your root build.gradle file (not your module build.gradle file):
+
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+Then, add the library to your module build.gradle:
+
+```
+dependencies {
+    implementation 'com.github.alidili:RecyclerViewHelper:latest.release.here'
+}
+```
 
 ## License
 

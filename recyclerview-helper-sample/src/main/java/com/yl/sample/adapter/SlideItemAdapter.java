@@ -40,12 +40,13 @@ public class SlideItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
+        final RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
         recyclerViewHolder.tvItem.setText(mDataList.get(position));
         recyclerViewHolder.slideItemView.setSlideLimit(DensityUtils.dp2px(mContext, 50));
         recyclerViewHolder.tvItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recyclerViewHolder.slideItemView.reset();
                 Toast.makeText(mContext, mDataList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
