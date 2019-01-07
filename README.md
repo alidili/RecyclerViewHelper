@@ -1,12 +1,9 @@
 # RecyclerViewHelper
 
-[![](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper) 
-
-[![](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk) 
-
+[![](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper)
+[![](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk)
 [![](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-
-[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/alidili/RecyclerViewHelper/blob/master/LICENSE) 
+[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/alidili/RecyclerViewHelper/blob/master/LICENSE)
 
 ## Dependency
 
