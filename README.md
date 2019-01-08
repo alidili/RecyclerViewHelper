@@ -1,5 +1,6 @@
 # RecyclerViewHelper
 
+[![](https://travis-ci.com/alidili/RecyclerViewHelper.svg?branch=master)](https://travis-ci.com/alidili/RecyclerViewHelper)
 [![](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper)
 [![](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk)
 [![](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
