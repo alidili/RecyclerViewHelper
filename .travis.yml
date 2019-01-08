@@ -1,5 +1,8 @@
 language: android
 jdk: oraclejdk8
+before_install:
+    - yes | sdkmanager "platforms;android-28"
+    - chmod +x gradlew
 
 env:
   global:
@@ -17,3 +20,7 @@ android:
     - android-$ANDROID_API_LEVEL
   licenses:
     - '.+'
+    
+script:
+    - ./gradlew clean
+    - ./gradlew assembleDebug
