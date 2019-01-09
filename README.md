@@ -1,10 +1,12 @@
 # RecyclerViewHelper
 
-[![](https://travis-ci.com/alidili/RecyclerViewHelper.svg?branch=master)](https://travis-ci.com/alidili/RecyclerViewHelper)
-[![](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper)
-[![](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk)
-[![](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/alidili/RecyclerViewHelper/blob/master/LICENSE)
+[![Travis](https://travis-ci.com/alidili/RecyclerViewHelper.svg?branch=master)](https://travis-ci.com/alidili/RecyclerViewHelper)
+[![Jitpack](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper)
+[![APK](https://img.shields.io/badge/APK%20download-1.97MB-blue.svg)](https://github.com/alidili/RecyclerViewHelper/raw/master/RecyclerViewHelper.apk)
+[![API](https://img.shields.io/badge/API-16%2B-yellow.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![LICENSE](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/alidili/RecyclerViewHelper/blob/master/LICENSE)
+
+:zap: A library to make RecyclerView more easy :zap:
 
 ## Dependency
 
