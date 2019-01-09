@@ -1,4 +1,4 @@
-# RecyclerViewHelper
+![Banner](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/RecyclerViewHelper.png)
 
 [![Travis](https://travis-ci.com/alidili/RecyclerViewHelper.svg?branch=master)](https://travis-ci.com/alidili/RecyclerViewHelper)
 [![Jitpack](https://jitpack.io/v/alidili/RecyclerViewHelper.svg)](https://jitpack.io/#alidili/RecyclerViewHelper)
