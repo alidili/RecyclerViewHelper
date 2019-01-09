@@ -1,16 +1,15 @@
 package com.yl.recyclerview.wrapper;
 
 import android.content.Context;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.yl.recyclerview.R;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Pull up to load more.
@@ -165,6 +164,15 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param loadingState 0.Loading 1.Loading done 2.Loading end
      */
     public void setLoadState(int loadingState) {
+        this.mLoadingState = loadingState;
+    }
+
+    /**
+     * Set the pull-up state with notify.
+     *
+     * @param loadingState 0.Loading 1.Loading done 2.Loading end
+     */
+    public void setLoadStateNotify(int loadingState) {
         this.mLoadingState = loadingState;
         notifyDataSetChanged();
     }

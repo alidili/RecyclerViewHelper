@@ -20,7 +20,7 @@ public abstract class OnScrollListener extends RecyclerView.OnScrollListener {
         super.onScrollStateChanged(recyclerView, newState);
         LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
         // When not scroll
-        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        if (newState == RecyclerView.SCROLL_STATE_IDLE && manager != null) {
             // Get the last fully displayed item position.
             int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
             int itemCount = manager.getItemCount();

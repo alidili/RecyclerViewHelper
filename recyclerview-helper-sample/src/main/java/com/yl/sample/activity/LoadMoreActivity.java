@@ -74,7 +74,7 @@ public class LoadMoreActivity extends BaseActivity {
                 // Refresh data
                 mDataList.clear();
                 getData();
-                mLoadMoreWrapper.notifyDataSetChanged();
+                mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_COMPLETE);
 
                 // Delay 1s close
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
@@ -92,7 +92,7 @@ public class LoadMoreActivity extends BaseActivity {
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onLoadMore() {
-                mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING);
+                mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING);
 
                 if (mDataList.size() < 52) {
                     // Simulate get network data，delay 1s
@@ -103,14 +103,14 @@ public class LoadMoreActivity extends BaseActivity {
                                 @Override
                                 public void run() {
                                     getData();
-                                    mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING_COMPLETE);
+                                    mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_COMPLETE);
                                 }
                             });
                         }
                     }, 1000);
                 } else {
                     // Show loading end
-                    mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING_END);
+                    mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_END);
                 }
             }
         });
@@ -164,6 +164,7 @@ public class LoadMoreActivity extends BaseActivity {
         }
         mDataList.clear();
         getData();
+        mLoadMoreWrapper.setLoadState(mLoadMoreWrapper.LOADING_COMPLETE);
         mRecyclerView.setAdapter(mLoadMoreWrapper);
         return super.onOptionsItemSelected(item);
     }
