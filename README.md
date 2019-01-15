@@ -12,7 +12,7 @@
 
 Add this in your root build.gradle file:
 
-```
+``` groovy
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
@@ -22,7 +22,7 @@ allprojects {
 
 Then, add the library to your module build.gradle:
 
-```
+``` groovy
 dependencies {
     implementation 'com.github.alidili:RecyclerViewHelper:latest.release.here'
 }
@@ -32,7 +32,7 @@ dependencies {
 
 ![Pull up to load more](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/PullUpToLoadMore.gif)
 
-```
+``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mLoadMoreWrapper = new LoadMoreWrapper(commonAdapter);
 customLoadingView();
@@ -50,7 +50,7 @@ mRecyclerView.addOnScrollListener(new OnScrollListener() {
 
 **Custom loading view**
 
-```
+``` java
 private void customLoadingView() {
 	// Custom loading view
 	ProgressBar progressBar = new ProgressBar(this);
@@ -70,7 +70,7 @@ private void customLoadingView() {
 
 ![HeaderView / FooterView](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/HeaderFooterView.gif)
 
-```
+``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
 addHeaderAndFooterView();
@@ -80,7 +80,7 @@ mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
 
 **Add header view and footer view**
 
-```
+``` java
 private void addHeaderAndFooterView() {
 	// Add header view
 	View headerView = View.inflate(this, R.layout.layout_header_footer, null);
@@ -100,7 +100,7 @@ private void addHeaderAndFooterView() {
 
 ![Drag & Drop](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/DragAndDrop.gif)
 
-```
+``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList);
 mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
@@ -112,7 +112,7 @@ mRecyclerView.setAdapter(mDragAndDropWrapper);
 
 ![Swipe to dismiss](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/SwipeToDismiss.gif)
 
-```
+``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mSwipeToDismissWrapper = new SwipeToDismissWrapper(commonAdapter, mDataList);
 mSwipeToDismissWrapper.attachToRecyclerView(mRecyclerView);
@@ -123,24 +123,7 @@ mRecyclerView.setAdapter(mSwipeToDismissWrapper);
 mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissListener() {
 	@Override
 	public void onItemDismiss(final int position) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(SwipeToDismissActivity.this);
-		builder.setMessage("Do you want to delete this item ?")
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						mDataList.remove(position);
-						mSwipeToDismissWrapper.notifyDataSetChanged();
-						dialog.dismiss();
-					}
-				})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						mSwipeToDismissWrapper.notifyDataSetChanged();
-						dialog.dismiss();
-					}
-				})
-				.show();
+		// TODO
 	}
 });
 ```
@@ -149,7 +132,7 @@ mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissL
 
 ![SlideItemView](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/SlideItemView.gif)
 
-```
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.yl.recyclerview.widget.SlideItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slide_item"
@@ -181,7 +164,7 @@ mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissL
 
 ![Divider item decoration](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/DividerItemDecoration.gif)
 
-```
+``` java
 mDividerAdapter = new DividerAdapter(mDataList);
 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -194,7 +177,7 @@ mRecyclerView.setAdapter(mDividerAdapter);
 
 ## Click / LongClick / Touch
 
-```
+``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mClickWrapper = new ClickWrapper(commonAdapter);
 mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
