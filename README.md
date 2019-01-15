@@ -28,6 +28,64 @@ dependencies {
 }
 ```
 
+## Pull up to load more
+
+```
+CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+mLoadMoreWrapper = new LoadMoreWrapper(commonAdapter);
+//customLoadingView();
+mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setAdapter(mLoadMoreWrapper);
+
+// Set the load more listener
+mRecyclerView.addOnScrollListener(new OnScrollListener() {
+	@Override
+	public void onLoadMore() {
+		mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING);
+
+		if (mDataList.size() < 52) {
+			// Simulate get network data，delay 1s
+			new Timer().schedule(new TimerTask() {
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							getData();
+							mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_COMPLETE);
+						}
+					});
+				}
+			}, 1000);
+		} else {
+			// Show loading end
+			mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_END);
+		}
+	}
+});
+```
+
+**Custom loading view**
+
+```
+/**
+ * Custom loading view.
+ */
+private void customLoadingView() {
+	// Custom loading view
+	ProgressBar progressBar = new ProgressBar(this);
+	mLoadMoreWrapper.setLoadingView(progressBar);
+
+	// Custom loading end view
+	TextView textView = new TextView(this);
+	textView.setText("End");
+	mLoadMoreWrapper.setLoadingEndView(textView);
+
+	// Custom loading height
+	mLoadMoreWrapper.setLoadingViewHeight(DensityUtils.dp2px(this, 50));
+}
+```
+
 ## License
 
 ```
