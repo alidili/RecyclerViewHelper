@@ -35,7 +35,7 @@ dependencies {
 ```
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mLoadMoreWrapper = new LoadMoreWrapper(commonAdapter);
-//customLoadingView();
+customLoadingView();
 mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 mRecyclerView.setAdapter(mLoadMoreWrapper);
 
@@ -51,9 +51,6 @@ mRecyclerView.addOnScrollListener(new OnScrollListener() {
 **Custom loading view**
 
 ```
-/**
- * Custom loading view.
- */
 private void customLoadingView() {
 	// Custom loading view
 	ProgressBar progressBar = new ProgressBar(this);
@@ -67,6 +64,162 @@ private void customLoadingView() {
 	// Custom loading height
 	mLoadMoreWrapper.setLoadingViewHeight(DensityUtils.dp2px(this, 50));
 }
+```
+
+## HeaderView / FooterView
+
+![HeaderView / FooterView](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/HeaderFooterView.gif)
+
+```
+CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(commonAdapter);
+addHeaderAndFooterView();
+mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
+```
+
+**Add header view and footer view**
+
+```
+private void addHeaderAndFooterView() {
+	// Add header view
+	View headerView = View.inflate(this, R.layout.layout_header_footer, null);
+	TextView headerItem = headerView.findViewById(R.id.tv_item);
+	headerItem.setText("HeaderView");
+	mHeaderAndFooterWrapper.addHeaderView(headerView);
+
+	// Add footer view
+	View footerView = View.inflate(this, R.layout.layout_header_footer, null);
+	TextView footerItem = footerView.findViewById(R.id.tv_item);
+	footerItem.setText("FooterView");
+	mHeaderAndFooterWrapper.addFooterView(footerView);
+}
+```
+
+## Drag & Drop
+
+![Drag & Drop](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/DragAndDrop.gif)
+
+```
+CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList);
+mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
+mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setAdapter(mDragAndDropWrapper);
+```
+
+## Swipe to dismiss
+
+![Swipe to dismiss](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/SwipeToDismiss.gif)
+
+```
+CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+mSwipeToDismissWrapper = new SwipeToDismissWrapper(commonAdapter, mDataList);
+mSwipeToDismissWrapper.attachToRecyclerView(mRecyclerView);
+mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setAdapter(mSwipeToDismissWrapper);
+
+// Set a listener for a dismissal event.
+mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissListener() {
+	@Override
+	public void onItemDismiss(final int position) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(SwipeToDismissActivity.this);
+		builder.setMessage("Do you want to delete this item ?")
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mDataList.remove(position);
+						mSwipeToDismissWrapper.notifyDataSetChanged();
+						dialog.dismiss();
+					}
+				})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mSwipeToDismissWrapper.notifyDataSetChanged();
+						dialog.dismiss();
+					}
+				})
+				.show();
+	}
+});
+```
+
+## SlideItemView
+
+![SlideItemView](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/SlideItemView.gif)
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<com.yl.recyclerview.widget.SlideItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slide_item"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        // Item
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            // Function button
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.yl.recyclerview.widget.SlideItemView>
+```
+
+## Divider item decoration
+
+![Divider item decoration](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/DividerItemDecoration.gif)
+
+```
+mDividerAdapter = new DividerAdapter(mDataList);
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+mRecyclerView.setLayoutManager(linearLayoutManager);
+SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this,
+		linearLayoutManager);
+dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
+mRecyclerView.addItemDecoration(dividerItemDecoration);
+mRecyclerView.setAdapter(mDividerAdapter);
+```
+
+## Click / LongClick / Touch
+
+```
+CommonAdapter commonAdapter = new CommonAdapter(mDataList);
+mClickWrapper = new ClickWrapper(commonAdapter);
+mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setAdapter(mClickWrapper);
+
+mClickWrapper.setOnItemClickListener(new OnItemClickListener() {
+	@Override
+	public void onItemClick(View view, int position) {
+		// TODO
+	}
+});
+mClickWrapper.setOnItemLongClickListener(new OnItemLongClickListener() {
+	@Override
+	public boolean onItemLongClick(View view, int position) {
+		// TODO
+		return true;
+	}
+});
+mClickWrapper.setOnItemTouchListener(new OnItemTouchListener() {
+	@Override
+	public boolean onItemTouch(View view, MotionEvent event, int position) {
+		// TODO
+		return false;
+	}
+});
 ```
 
 ## License

@@ -35,7 +35,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="置顶"
+                android:text="TOP"
                 android:textColor="#FFF" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="删除"
+                android:text="DELETE"
                 android:textColor="#FFF" />
 
         </LinearLayout>
