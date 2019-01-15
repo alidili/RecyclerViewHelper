@@ -168,8 +168,7 @@ mSwipeToDismissWrapper.setItemDismissListener(new ItemSwipeCallback.ItemDismissL
 mDividerAdapter = new DividerAdapter(mDataList);
 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 mRecyclerView.setLayoutManager(linearLayoutManager);
-SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this,
-		linearLayoutManager);
+SuperDividerItemDecoration dividerItemDecoration = new SuperDividerItemDecoration(this, linearLayoutManager);
 dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.custom_bg_divider));
 mRecyclerView.addItemDecoration(dividerItemDecoration);
 mRecyclerView.setAdapter(mDividerAdapter);
@@ -203,6 +202,16 @@ mClickWrapper.setOnItemTouchListener(new OnItemTouchListener() {
 		return false;
 	}
 });
+```
+
+## ProGuard
+
+If you are using ProGuard you might need to add the following option:
+
+``` xml
+-keep class com.yl.recyclerview.** {
+    *;
+}
 ```
 
 ## License
