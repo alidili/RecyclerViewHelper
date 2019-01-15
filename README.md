@@ -30,6 +30,8 @@ dependencies {
 
 ## Pull up to load more
 
+![Pull up to load more](https://github.com/alidili/RecyclerViewHelper/blob/master/screenshots/PullUpToLoadMore.gif)
+
 ```
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
 mLoadMoreWrapper = new LoadMoreWrapper(commonAdapter);
@@ -41,26 +43,7 @@ mRecyclerView.setAdapter(mLoadMoreWrapper);
 mRecyclerView.addOnScrollListener(new OnScrollListener() {
 	@Override
 	public void onLoadMore() {
-		mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING);
-
-		if (mDataList.size() < 52) {
-			// Simulate get network data，delay 1s
-			new Timer().schedule(new TimerTask() {
-				@Override
-				public void run() {
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							getData();
-							mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_COMPLETE);
-						}
-					});
-				}
-			}, 1000);
-		} else {
-			// Show loading end
-			mLoadMoreWrapper.setLoadStateNotify(mLoadMoreWrapper.LOADING_END);
-		}
+		// TODO
 	}
 });
 ```
