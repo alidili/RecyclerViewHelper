@@ -8,6 +8,8 @@
 
 :zap: A library to make RecyclerView more easy :zap:
 
+**[中文](https://www.jianshu.com/p/827769fc0290)**
+
 ## Dependency
 
 Add this in your root build.gradle file:
@@ -102,7 +104,8 @@ private void addHeaderAndFooterView() {
 
 ``` java
 CommonAdapter commonAdapter = new CommonAdapter(mDataList);
-mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList);
+// Default response time 200ms
+mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList, 200);
 mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
 mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 mRecyclerView.setAdapter(mDragAndDropWrapper);
