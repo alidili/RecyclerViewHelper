@@ -7,12 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.yl.recyclerview.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.yl.recyclerview.R;
 
 /**
  * SuperDividerItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used as a divider
@@ -157,7 +157,7 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             parent.getDecoratedBoundsWithMargins(child, mBounds);
             final int left = mBounds.left;
             final int right = mBounds.right;
-            final int bottom = mBounds.bottom + Math.round(child.getTranslationY());
+            final int bottom = mBounds.bottom + Math.round(child.getTranslationY()) + mDividerHeight / 2;
             final int top = bottom - mDividerHeight;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
@@ -205,17 +205,12 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            if (isLastRow(view, parent)) {
-                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, 0);
-            } else {
-                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, mDividerHeight);
-            }
-
+            outRect.set(mDividerWidth / 2, mDividerHeight / 2, mDividerWidth / 2, mDividerHeight / 2);
         } else if (layoutManager instanceof LinearLayoutManager) {
-            if (mOrientation == VERTICAL && !isLastRow(view, parent)) {
-                outRect.set(0, 0, 0, mDividerHeight);
-            } else if (!isLastColumn(view, parent)) {
-                outRect.set(0, 0, mDividerWidth, 0);
+            if (mOrientation == VERTICAL) {
+                outRect.set(0, mDividerHeight / 2, 0, mDividerHeight / 2);
+            } else {
+                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, 0);
             }
         }
     }
