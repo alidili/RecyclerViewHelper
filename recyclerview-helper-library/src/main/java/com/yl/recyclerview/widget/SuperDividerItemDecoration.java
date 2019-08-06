@@ -142,7 +142,8 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
      * @param parent RecyclerView
      */
     private void drawHorizontalLine(Canvas canvas, RecyclerView parent) {
-        if (mDivider == null) {
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if (layoutManager == null || mDivider == null) {
             return;
         }
 
@@ -157,7 +158,11 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             parent.getDecoratedBoundsWithMargins(child, mBounds);
             final int left = mBounds.left;
             final int right = mBounds.right;
-            final int bottom = mBounds.bottom + Math.round(child.getTranslationY()) + mDividerHeight / 2;
+            int bottom = mBounds.bottom + Math.round(child.getTranslationY());
+            // GridLayout display in the center, margin mDividerHeight / 2.
+            if (layoutManager instanceof GridLayoutManager) {
+                bottom += mDividerHeight / 2;
+            }
             final int top = bottom - mDividerHeight;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
@@ -188,7 +193,11 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
             layoutManager.getDecoratedBoundsWithMargins(child, mBounds);
             final int top = mBounds.top;
             final int bottom = mBounds.bottom;
-            final int right = mBounds.right + Math.round(child.getTranslationX()) + mDividerWidth / 2;
+            int right = mBounds.right + Math.round(child.getTranslationX());
+            // GridLayout display in the center, margin mDividerWidth / 2.
+            if (layoutManager instanceof GridLayoutManager) {
+                right += mDividerWidth / 2;
+            }
             final int left = right - mDividerWidth;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(canvas);
@@ -205,12 +214,18 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
+            // GridLayout display in the center, horizontal margin mDividerWidth / 2, vertical margin mDividerHeight / 2.
             outRect.set(mDividerWidth / 2, mDividerHeight / 2, mDividerWidth / 2, mDividerHeight / 2);
+
         } else if (layoutManager instanceof LinearLayoutManager) {
-            if (mOrientation == VERTICAL) {
-                outRect.set(0, mDividerHeight / 2, 0, mDividerHeight / 2);
+            if (isLastRow(view, parent)) {
+                outRect.set(0, 0, 0, 0);
             } else {
-                outRect.set(mDividerWidth / 2, 0, mDividerWidth / 2, 0);
+                if (mOrientation == VERTICAL) {
+                    outRect.set(0, 0, 0, mDividerHeight);
+                } else {
+                    outRect.set(0, 0, mDividerWidth, 0);
+                }
             }
         }
     }
