@@ -16,17 +16,17 @@ import java.util.TimerTask;
  * Website：http://www.yangle.tech
  */
 
-public abstract class OnLongClickListener implements View.OnTouchListener {
+public abstract class OnCustomClickListener implements View.OnTouchListener {
 
     private int mX, mY, mDownX, mDownY;
     private Timer mTimer;
     // Default long click delay 200ms.
     private long mDelay = 200;
 
-    public OnLongClickListener() {
+    public OnCustomClickListener() {
     }
 
-    public OnLongClickListener(long delay) {
+    public OnCustomClickListener(long delay) {
         this.mDelay = delay;
     }
 
@@ -54,7 +54,7 @@ public abstract class OnLongClickListener implements View.OnTouchListener {
                                 float offsetY = Math.abs(mY - mDownY);
                                 float offsetLevel = dp2px(view.getContext(), 10);
                                 if (offsetX <= offsetLevel && offsetY <= offsetLevel) {
-                                    onLongClickListener();
+                                    onLongClickListener(view);
                                     mTimer = null;
                                 }
                             }
@@ -69,6 +69,7 @@ public abstract class OnLongClickListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 if (mTimer != null) {
                     mTimer.cancel();
+                    onClickListener(view);
                 }
                 break;
         }
@@ -77,8 +78,17 @@ public abstract class OnLongClickListener implements View.OnTouchListener {
 
     /**
      * Callback method for long click event.
+     *
+     * @param view View
      */
-    public abstract void onLongClickListener();
+    public abstract void onLongClickListener(View view);
+
+    /**
+     * Callback method for click event.
+     *
+     * @param view View
+     */
+    public abstract void onClickListener(View view);
 
     /**
      * dp to px

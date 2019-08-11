@@ -1,7 +1,8 @@
 package com.yl.recyclerview.helper;
 
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables swipe-to-dismiss.
@@ -29,7 +30,8 @@ public class ItemSwipeCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+    public int getMovementFlags(@NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder) {
         // Set movement flags.
         int dragFlags = 0;
         int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
@@ -37,14 +39,15 @@ public class ItemSwipeCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                          RecyclerView.ViewHolder target) {
+    public boolean onMove(@NonNull RecyclerView recyclerView,
+                          @NonNull RecyclerView.ViewHolder viewHolder,
+                          @NonNull RecyclerView.ViewHolder target) {
         // NO OP
         return false;
     }
 
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         // Notify the adapter of the dismissal.
         mItemDismissListener.onItemDismiss(viewHolder.getAdapterPosition());
     }

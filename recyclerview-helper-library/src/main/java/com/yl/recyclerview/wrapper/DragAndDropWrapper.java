@@ -1,11 +1,15 @@
 package com.yl.recyclerview.wrapper;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
+import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yl.recyclerview.helper.ItemMoveCallback;
-import com.yl.recyclerview.listener.OnLongClickListener;
+import com.yl.recyclerview.listener.OnCustomClickListener;
+import com.yl.recyclerview.listener.OnItemClickListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +32,8 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ItemTouchHelper mItemTouchHelper;
     // Default long click delay 200ms.
     private long mDelay = 200;
+    // Item click listener.
+    private OnItemClickListener mItemClickListener;
 
     public DragAndDropWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, List<?> dataList) {
         this.mAdapter = adapter;
@@ -41,22 +47,30 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mDelay = delay;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return mAdapter.onCreateViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         mAdapter.onBindViewHolder(holder, position);
 
         // Custom delay long click listener.
         // The item root view must be clickable.
-        holder.itemView.setOnTouchListener(new OnLongClickListener(mDelay) {
+        holder.itemView.setOnTouchListener(new OnCustomClickListener(mDelay) {
             @Override
-            public void onLongClickListener() {
+            public void onLongClickListener(View view) {
                 if (mItemTouchHelper != null) {
                     mItemTouchHelper.startDrag(holder);
+                }
+            }
+
+            @Override
+            public void onClickListener(View view) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(view, position);
                 }
             }
         });
@@ -68,9 +82,42 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
+    public boolean onItemMove(final RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target,
+                              final int fromPosition, final int toPosition) {
         Collections.swap(mDataList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+
+        // Swap click listener.
+        viewHolder.itemView.setOnTouchListener(new OnCustomClickListener(mDelay) {
+            @Override
+            public void onLongClickListener(View view) {
+                if (mItemTouchHelper != null) {
+                    mItemTouchHelper.startDrag(viewHolder);
+                }
+            }
+
+            @Override
+            public void onClickListener(View view) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(view, toPosition);
+                }
+            }
+        });
+        target.itemView.setOnTouchListener(new OnCustomClickListener(mDelay) {
+            @Override
+            public void onLongClickListener(View view) {
+                if (mItemTouchHelper != null) {
+                    mItemTouchHelper.startDrag(viewHolder);
+                }
+            }
+
+            @Override
+            public void onClickListener(View view) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(view, fromPosition);
+                }
+            }
+        });
         return true;
     }
 
@@ -94,5 +141,15 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
         ItemTouchHelper.Callback callback = new ItemMoveCallback(this, isFreedom);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    /**
+     * Register a callback to be invoked when this view is clicked. If this view is not
+     * clickable, it becomes clickable.
+     *
+     * @param onItemClickListener The callback that will run
+     */
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mItemClickListener = onItemClickListener;
     }
 }

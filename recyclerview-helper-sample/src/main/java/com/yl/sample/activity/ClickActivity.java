@@ -8,6 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yl.recyclerview.listener.OnItemClickListener;
 import com.yl.recyclerview.listener.OnItemLongClickListener;
 import com.yl.recyclerview.listener.OnItemTouchListener;
@@ -17,11 +22,6 @@ import com.yl.sample.adapter.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * ClickWrapper sample.
@@ -58,12 +58,15 @@ public class ClickActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mClickWrapper);
 
+        // Item click listener.
         mClickWrapper.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(ClickActivity.this, "ItemClick " + mDataList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Item long click listener.
         mClickWrapper.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(View view, int position) {
@@ -71,6 +74,8 @@ public class ClickActivity extends BaseActivity {
                 return true;
             }
         });
+
+        // Item touch listener.
         mClickWrapper.setOnItemTouchListener(new OnItemTouchListener() {
             @Override
             public boolean onItemTouch(View view, MotionEvent event, int position) {

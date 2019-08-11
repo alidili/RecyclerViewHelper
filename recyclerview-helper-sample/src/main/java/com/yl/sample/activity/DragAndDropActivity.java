@@ -4,19 +4,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
-import com.yl.recyclerview.wrapper.DragAndDropWrapper;
-import com.yl.sample.R;
-import com.yl.sample.adapter.CommonAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.yl.recyclerview.listener.OnItemClickListener;
+import com.yl.recyclerview.wrapper.DragAndDropWrapper;
+import com.yl.sample.R;
+import com.yl.sample.adapter.CommonAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Drag & Drop sample.
@@ -53,6 +56,14 @@ public class DragAndDropActivity extends BaseActivity {
         mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mDragAndDropWrapper);
+
+        // Item click listener.
+        mDragAndDropWrapper.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(DragAndDropActivity.this, "ItemClick " + mDataList.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**

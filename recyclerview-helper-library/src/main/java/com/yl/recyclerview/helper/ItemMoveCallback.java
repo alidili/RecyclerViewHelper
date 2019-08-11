@@ -1,8 +1,9 @@
 package com.yl.recyclerview.helper;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop.
@@ -38,7 +39,8 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+    public int getMovementFlags(@NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder) {
         // Set movement flags based on the layout manager.
         int swipeFlags = 0;
         int dragFlags;
@@ -57,19 +59,21 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                          RecyclerView.ViewHolder target) {
+    public boolean onMove(@NonNull RecyclerView recyclerView,
+                          @NonNull RecyclerView.ViewHolder viewHolder,
+                          @NonNull RecyclerView.ViewHolder target) {
         if (viewHolder.getItemViewType() != target.getItemViewType()) {
             return false;
         }
 
         // Notify the adapter of the move.
-        mItemMoveListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        mItemMoveListener.onItemMove(viewHolder, target, viewHolder.getAdapterPosition(),
+                target.getAdapterPosition());
         return true;
     }
 
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         // NO OP
     }
 
@@ -81,10 +85,14 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
         /**
          * Called when an item has been dragged far enough to trigger a move.
          *
+         * @param viewHolder   The ViewHolder which is being dragged by the user.
+         * @param target       The ViewHolder over which the currently active item is being
+         *                     dragged.
          * @param fromPosition The start position of the moved item.
          * @param toPosition   Then resolved position of the moved item.
          * @return True if the item was moved to the new adapter position.
          */
-        boolean onItemMove(int fromPosition, int toPosition);
+        boolean onItemMove(RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target,
+                           int fromPosition, int toPosition);
     }
 }
