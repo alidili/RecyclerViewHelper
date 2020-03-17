@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2019/1/4.
  * Website：http://www.yangle.tech
  */
-
 public class SlideItemActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

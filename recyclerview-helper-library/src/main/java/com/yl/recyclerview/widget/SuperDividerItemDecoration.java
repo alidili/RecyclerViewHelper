@@ -22,7 +22,6 @@ import com.yl.recyclerview.R;
  * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
-
 public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final String TAG = "SuperDividerItem";

@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
-
 public class DividerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> mDataList;

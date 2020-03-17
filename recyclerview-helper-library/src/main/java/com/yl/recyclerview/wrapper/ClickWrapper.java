@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2018/11/29.
  * Website：http://www.yangle.tech
  */
-
 public class ClickWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Origin adapter

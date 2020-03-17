@@ -32,7 +32,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech
  */
-
 public class LoadMoreActivity extends BaseActivity {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;

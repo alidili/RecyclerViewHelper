@@ -20,7 +20,6 @@ import java.util.List;
  * Created by yangle on 2017/11/17.
  * Website：http://www.yangle.tech
  */
-
 public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements ItemMoveCallback.ItemMoveListener {
 

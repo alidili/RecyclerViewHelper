@@ -7,13 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yl.recyclerview.widget.SlideItemView;
 import com.yl.sample.R;
 import com.yl.sample.utils.DensityUtils;
 
 import java.util.List;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * SlideItem adapter.
@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2018/1/4.
  * Website：http://www.yangle.tech
  */
-
 public class SlideItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;

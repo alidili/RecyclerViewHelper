@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2017/10/26.
  * Website：http://www.yangle.tech
  */
-
 public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Context

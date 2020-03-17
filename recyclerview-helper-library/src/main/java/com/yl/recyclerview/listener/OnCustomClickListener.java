@@ -15,7 +15,6 @@ import java.util.TimerTask;
  * Created by yangle on 2017/11/22.
  * Website：http://www.yangle.tech
  */
-
 public abstract class OnCustomClickListener implements View.OnTouchListener {
 
     private int mX, mY, mDownX, mDownY;

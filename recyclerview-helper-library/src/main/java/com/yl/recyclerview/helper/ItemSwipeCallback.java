@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2017/12/18.
  * Website：http://www.yangle.tech
  */
-
 public class ItemSwipeCallback extends ItemTouchHelper.Callback {
 
     private ItemDismissListener mItemDismissListener;

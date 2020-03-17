@@ -29,7 +29,6 @@ import java.util.List;
  * Created by yangle on 2018/11/29.
  * Website：http://www.yangle.tech
  */
-
 public class ClickActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

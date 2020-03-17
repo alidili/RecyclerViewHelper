@@ -8,7 +8,6 @@ import android.view.View;
  * Created by yangle on 2018/11/29.
  * Website：http://www.yangle.tech
  */
-
 public interface OnItemClickListener {
 
     /**

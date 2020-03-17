@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
  * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
-
 public class BaseActivity extends AppCompatActivity {
 
     @Override

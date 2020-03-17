@@ -17,7 +17,6 @@ import java.util.List;
  * Created by yangle on 2017/11/16.
  * Website：http://www.yangle.tech
  */
-
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> mItemList;

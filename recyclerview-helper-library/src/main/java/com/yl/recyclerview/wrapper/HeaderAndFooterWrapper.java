@@ -3,6 +3,7 @@ package com.yl.recyclerview.wrapper;
 import androidx.collection.SparseArrayCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,7 +13,6 @@ import android.view.ViewGroup;
  * Created by yangle on 2017/10/27.
  * Website：http://www.yangle.tech
  */
-
 public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Origin adapter

@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2018/11/27.
  * Website：http://www.yangle.tech
  */
-
 public class SuperDividerItemDecorationActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

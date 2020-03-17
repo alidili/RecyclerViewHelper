@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2017/11/14.
  * Website：http://www.yangle.tech
  */
-
 public class HeaderAndFooterViewActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

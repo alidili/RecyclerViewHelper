@@ -6,6 +6,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yl.recyclerview.helper.ItemSwipeCallback;
 import com.yl.recyclerview.wrapper.SwipeToDismissWrapper;
 import com.yl.sample.R;
@@ -14,20 +21,12 @@ import com.yl.sample.adapter.CommonAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 /**
  * Swipe to dismiss sample.
  * <p>
  * Created by yangle on 2017/12/19.
  * Website：http://www.yangle.tech
  */
-
 public class SwipeToDismissActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

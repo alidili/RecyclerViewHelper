@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by yangle on 2017/11/17.
  * Website：http://www.yangle.tech
  */
-
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
     private ItemMoveListener mItemMoveListener;

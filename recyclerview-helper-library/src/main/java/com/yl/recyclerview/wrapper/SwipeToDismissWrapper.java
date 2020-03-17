@@ -1,8 +1,9 @@
 package com.yl.recyclerview.wrapper;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yl.recyclerview.helper.ItemSwipeCallback;
 
@@ -14,7 +15,6 @@ import java.util.List;
  * Created by yangle on 2017/12/18.
  * Website：http://www.yangle.tech
  */
-
 public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements ItemSwipeCallback.ItemDismissListener {
 

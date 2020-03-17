@@ -27,7 +27,6 @@ import java.util.List;
  * Created by yangle on 2017/11/22.
  * Website：http://www.yangle.tech
  */
-
 public class DragAndDropActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
