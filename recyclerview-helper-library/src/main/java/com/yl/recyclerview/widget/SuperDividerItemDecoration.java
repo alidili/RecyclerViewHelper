@@ -27,7 +27,6 @@ public class SuperDividerItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "SuperDividerItem";
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
     public static final int VERTICAL = LinearLayout.VERTICAL;
-    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private int mDividerWidth;
     private int mDividerHeight;
