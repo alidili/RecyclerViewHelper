@@ -81,6 +81,11 @@ public class SlideItemView extends HorizontalScrollView {
                 contentView.getLeft() + width, contentView.getBottom());
         functionView.layout(contentView.getLeft() + width, contentView.getTop(),
                 contentView.getLeft() + width + mFunctionViewWidth, contentView.getBottom());
+
+        // Set content area width
+        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        layoutParams.width = width;
+        contentView.setLayoutParams(layoutParams);
     }
 
     @SuppressLint("ClickableViewAccessibility")
