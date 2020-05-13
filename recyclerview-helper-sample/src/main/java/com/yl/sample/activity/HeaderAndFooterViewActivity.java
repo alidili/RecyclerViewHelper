@@ -7,17 +7,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yl.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.yl.sample.R;
 import com.yl.sample.adapter.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Header view and footer view sample.

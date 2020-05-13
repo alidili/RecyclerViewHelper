@@ -1,11 +1,12 @@
 package com.yl.recyclerview.wrapper;
 
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.collection.SparseArrayCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Add header view and footer view.
@@ -25,9 +26,20 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
     // Footer view list
     private SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
+    // GridLayoutManager, header view occupy a row, default is true.
+    private boolean mIsMergeHeader = true;
+    // GridLayoutManager, footer view occupy a row, default is true.
+    private boolean mIsMergeFooter = true;
 
     public HeaderAndFooterWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
         this.mAdapter = adapter;
+    }
+
+    public HeaderAndFooterWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter,
+                                  boolean isMergeHeader, boolean isMergeFooter) {
+        this.mAdapter = adapter;
+        this.mIsMergeHeader = isMergeHeader;
+        this.mIsMergeFooter = isMergeFooter;
     }
 
     @Override
@@ -41,8 +53,9 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         return mAdapter.getItemViewType(position - getHeaderViewCount());
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create view by the view type.
         if (mHeaderViews.get(viewType) != null) {
             return new HeaderAndFooterViewHolder(mHeaderViews.get(viewType));
@@ -54,7 +67,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (isHeaderView(position) || isFooterView(position)) {
             return;
         }
@@ -67,7 +80,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull final RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
 
@@ -80,8 +93,13 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
                     // If the current position is header view or footer view, the item occupy two cells,
                     // Normal item occupy a cell.
                     int itemViewType = getItemViewType(position);
-                    return itemViewType == TYPE_HEADER || itemViewType == TYPE_FOOTER ?
-                            gridManager.getSpanCount() : 1;
+                    if (itemViewType == TYPE_HEADER && mIsMergeHeader) {
+                        return gridManager.getSpanCount();
+                    }
+                    if (itemViewType == TYPE_FOOTER && mIsMergeFooter) {
+                        return gridManager.getSpanCount();
+                    }
+                    return 1;
                 }
             });
         }
@@ -142,6 +160,26 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
      */
     public int getFooterViewCount() {
         return mFooterViews.size();
+    }
+
+    /**
+     * GridLayoutManager, header view occupy a row, default is true.
+     *
+     * @param isMergeHeader true: header view occupy a row
+     *                      false: normal
+     */
+    public void setIsMergeHeader(boolean isMergeHeader) {
+        this.mIsMergeHeader = isMergeHeader;
+    }
+
+    /**
+     * GridLayoutManager, footer view occupy a row, default is true.
+     *
+     * @param isMergeFooter true: footer view occupy a row
+     *                      false: normal
+     */
+    public void setIsMergeFooter(boolean isMergeFooter) {
+        this.mIsMergeFooter = isMergeFooter;
     }
 
     /**
