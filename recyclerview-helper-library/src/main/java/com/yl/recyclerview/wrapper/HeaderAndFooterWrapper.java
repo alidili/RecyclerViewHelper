@@ -35,13 +35,6 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
         this.mAdapter = adapter;
     }
 
-    public HeaderAndFooterWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter,
-                                  boolean isMergeHeader, boolean isMergeFooter) {
-        this.mAdapter = adapter;
-        this.mIsMergeHeader = isMergeHeader;
-        this.mIsMergeFooter = isMergeFooter;
-    }
-
     @Override
     public int getItemViewType(int position) {
         if (isHeaderView(position)) {
@@ -163,26 +156,6 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
-     * GridLayoutManager, header view occupy a row, default is true.
-     *
-     * @param isMergeHeader true: header view occupy a row
-     *                      false: normal
-     */
-    public void setIsMergeHeader(boolean isMergeHeader) {
-        this.mIsMergeHeader = isMergeHeader;
-    }
-
-    /**
-     * GridLayoutManager, footer view occupy a row, default is true.
-     *
-     * @param isMergeFooter true: footer view occupy a row
-     *                      false: normal
-     */
-    public void setIsMergeFooter(boolean isMergeFooter) {
-        this.mIsMergeFooter = isMergeFooter;
-    }
-
-    /**
      * Add header view.
      *
      * @param view View
@@ -192,11 +165,33 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     /**
+     * Add header view.
+     *
+     * @param view          View
+     * @param isMergeHeader GridLayoutManager, header view occupy a row, default is true.
+     */
+    public void addHeaderView(View view, boolean isMergeHeader) {
+        this.mIsMergeHeader = isMergeHeader;
+        mHeaderViews.append(getHeaderViewCount() + TYPE_HEADER, view);
+    }
+
+    /**
      * Add footer view.
      *
      * @param view View
      */
     public void addFooterView(View view) {
+        mFooterViews.append(getFooterViewCount() + TYPE_FOOTER, view);
+    }
+
+    /**
+     * Add footer view.
+     *
+     * @param view          View
+     * @param isMergeFooter GridLayoutManager, footer view occupy a row, default is true.
+     */
+    public void addFooterView(View view, boolean isMergeFooter) {
+        this.mIsMergeFooter = isMergeFooter;
         mFooterViews.append(getFooterViewCount() + TYPE_FOOTER, view);
     }
 }
