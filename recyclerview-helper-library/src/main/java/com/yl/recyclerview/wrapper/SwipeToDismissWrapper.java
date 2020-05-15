@@ -1,6 +1,7 @@
 package com.yl.recyclerview.wrapper;
 
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,7 +62,17 @@ public class SwipeToDismissWrapper extends RecyclerView.Adapter<RecyclerView.Vie
      * @param recyclerView RecyclerView
      */
     public void attachToRecyclerView(RecyclerView recyclerView) {
-        ItemTouchHelper.Callback callback = new ItemSwipeCallback(this);
+        attachToRecyclerView(recyclerView, LinearLayout.VERTICAL);
+    }
+
+    /**
+     * Attach to RecyclerView for swipe-to-dismiss.
+     *
+     * @param recyclerView RecyclerView
+     * @param orientation  LinearLayout.HORIZONTAL or LinearLayout.VERTICAL
+     */
+    public void attachToRecyclerView(RecyclerView recyclerView, int orientation) {
+        ItemTouchHelper.Callback callback = new ItemSwipeCallback(this, orientation);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }

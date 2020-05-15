@@ -1,5 +1,7 @@
 package com.yl.recyclerview.helper;
 
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemSwipeCallback extends ItemTouchHelper.Callback {
 
     private ItemDismissListener mItemDismissListener;
+    private int mOrientation = LinearLayout.VERTICAL;
 
     public ItemSwipeCallback(ItemDismissListener itemDismissListener) {
         this.mItemDismissListener = itemDismissListener;
+    }
+
+    public ItemSwipeCallback(ItemDismissListener itemDismissListener, int orientation) {
+        this.mItemDismissListener = itemDismissListener;
+        this.mOrientation = orientation;
     }
 
     @Override
@@ -33,7 +41,12 @@ public class ItemSwipeCallback extends ItemTouchHelper.Callback {
                                 @NonNull RecyclerView.ViewHolder viewHolder) {
         // Set movement flags.
         int dragFlags = 0;
-        int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        int swipeFlags;
+        if (mOrientation == LinearLayout.HORIZONTAL) {
+            swipeFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        } else {
+            swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        }
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
