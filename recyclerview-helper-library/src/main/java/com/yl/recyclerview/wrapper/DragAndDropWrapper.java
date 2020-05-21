@@ -76,12 +76,23 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position,
+                                 @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position);
+        } else {
+            mAdapter.onBindViewHolder(holder, position, payloads);
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return mAdapter.getItemCount();
     }
 
     @Override
-    public boolean onItemMove(final RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target,
+    public boolean onItemMove(final RecyclerView.ViewHolder viewHolder,
+                              final RecyclerView.ViewHolder target,
                               final int fromPosition, final int toPosition) {
         Collections.swap(mDataList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
@@ -106,7 +117,7 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onLongClickListener(View view) {
                 if (mItemTouchHelper != null) {
-                    mItemTouchHelper.startDrag(viewHolder);
+                    mItemTouchHelper.startDrag(target);
                 }
             }
 
