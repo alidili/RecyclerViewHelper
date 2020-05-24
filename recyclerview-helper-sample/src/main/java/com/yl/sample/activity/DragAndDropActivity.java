@@ -53,6 +53,7 @@ public class DragAndDropActivity extends BaseActivity {
         CommonAdapter commonAdapter = new CommonAdapter(mDataList);
         mDragAndDropWrapper = new DragAndDropWrapper(commonAdapter, mDataList);
         mDragAndDropWrapper.attachToRecyclerView(mRecyclerView, true);
+        mDragAndDropWrapper.setIsVibrate(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mDragAndDropWrapper);
 

@@ -1,5 +1,7 @@
 package com.yl.recyclerview.wrapper;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +33,8 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ItemTouchHelper mItemTouchHelper;
     // Default long click delay 200ms.
     private long mDelay = 200;
+    // Long click response vibrate, default is false.
+    private boolean mIsVibrate;
     // Item click listener.
     private OnItemClickListener mItemClickListener;
 
@@ -62,6 +66,7 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onLongClickListener(View view) {
                 if (mItemTouchHelper != null) {
+                    vibrate(holder.itemView.getContext());
                     mItemTouchHelper.startDrag(holder);
                 }
             }
@@ -102,6 +107,7 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onLongClickListener(View view) {
                 if (mItemTouchHelper != null) {
+                    vibrate(viewHolder.itemView.getContext());
                     mItemTouchHelper.startDrag(viewHolder);
                 }
             }
@@ -117,6 +123,7 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onLongClickListener(View view) {
                 if (mItemTouchHelper != null) {
+                    vibrate(target.itemView.getContext());
                     mItemTouchHelper.startDrag(target);
                 }
             }
@@ -161,5 +168,30 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mItemClickListener = onItemClickListener;
+    }
+
+    /**
+     * Long click response vibrate, default is false.
+     * Need permission: <uses-permission android:name="android.permission.VIBRATE" />
+     *
+     * @param isVibrate true: vibrate false: normal
+     */
+    public void setIsVibrate(boolean isVibrate) {
+        this.mIsVibrate = isVibrate;
+    }
+
+    /**
+     * Device vibrate
+     *
+     * @param context Context
+     */
+    private void vibrate(Context context) {
+        if (!mIsVibrate) {
+            return;
+        }
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator != null) {
+            vibrator.vibrate(200);
+        }
     }
 }
