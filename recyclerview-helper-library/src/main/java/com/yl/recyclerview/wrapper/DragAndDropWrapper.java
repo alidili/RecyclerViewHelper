@@ -99,7 +99,15 @@ public class DragAndDropWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     public boolean onItemMove(final RecyclerView.ViewHolder viewHolder,
                               final RecyclerView.ViewHolder target,
                               final int fromPosition, final int toPosition) {
-        Collections.swap(mDataList, fromPosition, toPosition);
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mDataList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mDataList, i, i - 1);
+            }
+        }
         notifyItemMoved(fromPosition, toPosition);
 
         // Swap click listener.
