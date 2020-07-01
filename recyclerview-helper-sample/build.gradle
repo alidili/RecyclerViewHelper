@@ -26,6 +26,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
     implementation "androidx.cardview:cardview:$ANDROIDX_CARDVIEW_VERSION"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
-    //implementation project(':recyclerview-helper-library')
-    implementation "com.github.alidili:RecyclerViewHelper:1.1.5"
+    implementation project(':recyclerview-helper-library')
+    //implementation "com.github.alidili:RecyclerViewHelper:1.1.5"
 }
